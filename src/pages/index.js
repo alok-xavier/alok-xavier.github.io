@@ -25,9 +25,9 @@ function HomepageHeader() {
             🛠️ Infrastructure Deep Dives
           </Link>
           &nbsp;&nbsp;
-          <Link className="button button--primary button--lg" to="/files/resume.pdf" download>
+          <a className="button button--primary button--lg" href={require('/static/files/resume.pdf').default} download>
             📄 Download Resume
-          </Link>
+          </a>
         </div>
       </div>
     </header>
@@ -289,14 +289,14 @@ function ContactSection() {
           >
             ✉️ Email
           </Link>
-          <Link 
+          <a 
             className="button button--lg"
-            to="/files/resume.pdf"
+            href={require('/static/files/resume.pdf').default}
             download
             style={{background: '#16a34a', color: 'white'}}
           >
             📄 Resume
-          </Link>
+          </a>
         </div>
       </div>
     </section>
