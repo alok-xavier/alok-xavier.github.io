@@ -227,7 +227,7 @@ function ProjectsSection() {
                 GitHub Actions
               </span>
             </div>
-            <ul style={{lineHeight: '1.8', opacity: 0.95'}}>
+            <ul style={{lineHeight: '1.8', opacity: 0.95}}>
               <li>Provisioned AWS EKS clusters using Terraform with reusable modules and remote state management</li>
               <li>Built CI pipelines to automate Docker image builds and application packaging</li>
               <li>Implemented continuous delivery using ArgoCD for declarative Kubernetes deployments</li>
