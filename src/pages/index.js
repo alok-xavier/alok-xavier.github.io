@@ -82,6 +82,11 @@ function CertificationsSection() {
       name: 'Google Cloud Associate Engineer',
       badge: 'https://templates.images.credential.net/16590187933301617801540872729153.png',
       credly: 'https://www.credly.com/badges/ff335805-8b73-4bed-bf12-1f036c9e113e/public_url'
+    },
+    {
+      name: 'AWS AI Practitioner Early Adopter',
+      badge: 'https://images.credly.com/size/340x340/images/f8c89d84-c7e3-4f84-8e48-f2f27ee5c6a7/image.png',
+      credly: 'https://www.credly.com/badges/e71667d2-e11c-4f22-b3dd-83952bb8cf1b/public_url'
     }
   ];
 
@@ -89,7 +94,7 @@ function CertificationsSection() {
     <section style={{padding: '4rem 0', textAlign: 'center'}}>
       <div className="container">
         <h2 style={{marginBottom: '3rem'}}>Certifications</h2>
-        <div style={{display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap'}}>
+        <div style={{display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', maxWidth: '1000px', margin: '0 auto'}}>
           {certifications.map((cert, idx) => (
             <a 
               key={idx} 
@@ -106,10 +111,7 @@ function CertificationsSection() {
                 transition: 'transform 0.2s',
                 cursor: 'pointer',
                 maxWidth: '200px'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
+              }}>
                 <img src={cert.badge} alt={cert.name} style={{width: '120px', height: '120px', marginBottom: '1rem'}} />
                 <p style={{fontSize: '0.9rem', fontWeight: '500'}}>{cert.name}</p>
               </div>
@@ -125,7 +127,7 @@ function SkillsSection() {
   const skills = [
     { 
       category: 'Cloud Platforms', 
-      items: ['AWS', 'GCP'] 
+      items: ['AWS (Expert)', 'GCP', 'Multi-Account Management'] 
     },
     { 
       category: 'Infrastructure as Code', 
@@ -153,7 +155,7 @@ function SkillsSection() {
     },
     { 
       category: 'Tools & Platforms', 
-      items: ['Jira', 'ServiceNow', 'Confluence'] 
+      items: ['Jira', 'ServiceNow', 'Confluence', 'Sedai'] 
     }
   ];
 
@@ -227,11 +229,11 @@ function ProjectsSection() {
                 GitHub Actions
               </span>
             </div>
-            <ul style={{lineHeight: '1.8', opacity: 0.95}}>
-              <li>Provisioned AWS EKS clusters using Terraform with reusable modules and remote state management</li>
-              <li>Built CI pipelines to automate Docker image builds and application packaging</li>
-              <li>Implemented continuous delivery using ArgoCD for declarative Kubernetes deployments</li>
-            </ul>
+            <div style={{marginBottom: '1.5rem', lineHeight: '1.8', opacity: 0.95}}>
+              <p>• Provisioned AWS EKS clusters using Terraform with reusable modules and remote state management</p>
+              <p>• Built CI pipelines to automate Docker image builds and application packaging</p>
+              <p>• Implemented continuous delivery using ArgoCD for declarative Kubernetes deployments</p>
+            </div>
             <Link 
               to="https://github.com/alok-xavier" 
               target="_blank"
