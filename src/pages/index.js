@@ -73,22 +73,22 @@ function CertificationsSection() {
   const certifications = [
     {
       name: 'AWS Solutions Architect - Associate',
-      badge: 'https://images.credly.com/size/340x340/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png',
+      badge: 'https://images.credly.com/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png',
       credly: 'https://www.credly.com/badges/3004091e-e1ce-47e1-b428-b7f7fe857532/public_url',
     },
     {
       name: 'AWS AI Practitioner',
-      badge: 'https://images.credly.com/size/340x340/images/61542181-3d9c-4725-8a33-c7a4e2f8d943/image.png',
+      badge: 'https://images.credly.com/images/4d4693bb-530e-4bca-9327-de07f3aa2348/image.png',
       credly: 'https://www.credly.com/badges/74e72ad3-9c24-4c0f-8cf0-5d99fd319da0/public_url',
     },
     {
       name: 'Google Cloud Associate Engineer',
-      badge: 'https://templates.images.credential.net/16590187933301617801540872729153.png',
+      badge: 'https://images.credly.com/images/08096465-cbfc-4c3e-93e5-93c5aa61f23e/image.png',
       credly: 'https://www.credly.com/badges/ff335805-8b73-4bed-bf12-1f036c9e113e/public_url',
     },
     {
       name: 'AWS AI Practitioner Early Adopter',
-      badge: 'https://images.credly.com/size/340x340/images/f8c89d84-c7e3-4f84-8e48-f2f27ee5c6a7/image.png',
+      badge: 'https://images.credly.com/images/834f2c8d-2d2c-4ce7-9580-02a351c31626/image.png',
       credly: 'https://www.credly.com/badges/e71667d2-e11c-4f22-b3dd-83952bb8cf1b/public_url',
     },
   ];
@@ -111,12 +111,24 @@ function CertificationsSection() {
                   background: 'var(--ifm-background-color)',
                   borderRadius: '12px',
                   boxShadow: 'var(--ifm-global-shadow-md)',
-                  transition: 'transform 0.2s',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
                   cursor: 'pointer',
                   maxWidth: '200px',
+                  minHeight: '240px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid var(--ifm-color-emphasis-300)',
+                  hover: {transform: 'translateY(-4px)'}
                 }}>
-                <img src={cert.badge} alt={cert.name} style={{width: '120px', height: '120px', marginBottom: '1rem'}} />
-                <p style={{fontSize: '0.9rem', fontWeight: '500'}}>{cert.name}</p>
+                <img 
+                  src={cert.badge} 
+                  alt={cert.name} 
+                  style={{width: '120px', height: '120px', marginBottom: '1rem', objectFit: 'contain'}}
+                  onError={(e) => {e.target.style.display = 'none'}}
+                />
+                <p style={{fontSize: '0.9rem', fontWeight: '500', textAlign: 'center'}}>{cert.name}</p>
               </div>
             </a>
           ))}
