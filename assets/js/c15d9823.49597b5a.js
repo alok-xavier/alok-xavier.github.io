@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkalok_xavier_portfolio=globalThis.webpackChunkalok_xavier_portfolio||[]).push([[146],{9328(a){a.exports=JSON.parse('{"metadata":{"permalink":"/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"What Alok Xavier learned this week about SRE, DevOps, cloud and AIOps.","blogTitle":"Weekly learning log"}}')}}]);

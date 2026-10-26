@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkalok_xavier_portfolio=globalThis.webpackChunkalok_xavier_portfolio||[]).push([[472],{5513(e){e.exports=JSON.parse('{"title":"Recent entries","items":[{"title":"Starting a weekly learning log","permalink":"/blog/starting-the-log","unlisted":false,"date":"2026-10-26T00:00:00.000Z"}]}')}}]);

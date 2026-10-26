@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkalok_xavier_portfolio=globalThis.webpackChunkalok_xavier_portfolio||[]).push([[903],{1912(o){o.exports=JSON.parse('{"blogBasePath":"/blog","blogTitle":"Weekly learning log","authorsListPath":"/blog/authors"}')}}]);

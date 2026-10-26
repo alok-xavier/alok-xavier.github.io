@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkalok_xavier_portfolio=globalThis.webpackChunkalok_xavier_portfolio||[]).push([[121],{8070(o){o.exports=JSON.parse('{"tags":[{"label":"Meta","permalink":"/blog/tags/meta","description":"Notes about this log itself","count":1}]}')}}]);
