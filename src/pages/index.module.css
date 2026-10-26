@@ -1,25 +1,602 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* Homepage. Tokens live in src/css/custom.css (:root --ax-*). */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
+.page {
+  background: var(--ax-paper);
+}
+
+.wrap {
+  max-width: var(--ax-wrap);
+  margin: 0 auto;
+  padding: 0 var(--ax-gutter);
+}
+
+.muted {
+  color: var(--ax-slate);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  background: var(--ax-night);
+  color: #e6e8f2;
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(2.5rem, 5vw, 4rem);
   overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.heroIntro {
+  margin: 0 0 1.25rem;
+  font-size: 1.0625rem;
+  color: var(--ax-mist);
+}
+
+.heroTitle {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.25rem, 13.5vw, 8.25rem);
+  font-weight: 850;
+  font-stretch: 125%;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.heroLede {
+  max-width: 40rem;
+  margin: 1.75rem 0 0;
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  line-height: 1.6;
+  color: #c9cde0;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.btnPrimary,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  border-radius: 6px;
+  font-weight: 650;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.btnPrimary {
+  background: var(--ax-sodium);
+  color: var(--ax-night);
+}
+
+.btnPrimary:hover {
+  background: var(--ax-sodium-hot);
+  color: var(--ax-night);
+  text-decoration: none;
+}
+
+.btnGhost {
+  border: 1px solid var(--ax-night-line);
+  color: #fff;
+}
+
+.btnGhost:hover {
+  border-color: var(--ax-sodium);
+  color: var(--ax-sodium);
+  text-decoration: none;
+}
+
+.fleet {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem 3rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ax-night-line);
+}
+
+.legendKey {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ax-mist);
+}
+
+.legendDot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: var(--ax-sodium);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin: 0;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.factValue {
+  margin: 0;
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 750;
+  font-stretch: 120%;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.factLabel {
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--ax-mist);
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  padding: clamp(4rem, 8vw, 6.5rem) 0;
+  border-bottom: 1px solid var(--ax-line);
+}
+
+.sectionTight {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+}
+
+.sectionAlt {
+  background: var(--ax-surface);
+}
+
+.sectionTitle {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  font-weight: 800;
+  font-stretch: 122%;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  overflow-wrap: normal;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 2rem 4rem;
+}
+
+.rail {
+  align-self: start;
+}
+
+@media (min-width: 997px) {
+  .rail {
+    position: sticky;
+    top: calc(var(--ifm-navbar-height) + 2rem);
   }
 }
 
-.buttons {
+/* ---------- Work ---------- */
+
+.role {
+  margin-top: 1.5rem;
+}
+
+.role p {
+  margin: 0;
+}
+
+.roleTitle {
+  font-weight: 650;
+  font-size: 1.0625rem;
+}
+
+.roleMeta {
+  color: var(--ax-slate);
+}
+
+.roleClient {
+  margin-top: 1rem !important;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--ax-sodium);
+  color: var(--ax-slate);
+  max-width: 26rem;
+}
+
+.groups {
+  display: grid;
+  gap: 2.75rem;
+}
+
+.group,
+.education {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ax-line);
+}
+
+.group:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.groupTitle {
+  margin: 0 0 0.85rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-stretch: 112%;
+}
+
+.groupList {
+  margin: 0;
+  padding-left: 1.1rem;
+  max-width: 62ch;
+}
+
+.groupList li {
+  margin-bottom: 0.6rem;
+}
+
+.groupList li::marker {
+  color: var(--ax-sodium-deep);
+}
+
+.figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 0 0 0.75rem;
+}
+
+.figureValue {
+  font-size: clamp(3rem, 6vw, 4.25rem);
+  font-weight: 850;
+  font-stretch: 125%;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ax-sodium-deep);
+}
+
+.figureLabel {
+  color: var(--ax-slate);
+}
+
+.education p {
+  margin: 0;
+}
+
+/* ---------- Project ---------- */
+
+.projectHead {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 1rem 4rem;
+  align-items: end;
+}
+
+.projectLede {
+  margin: 0 0 1rem;
+  max-width: 60ch;
+  font-size: 1.125rem;
+  color: var(--ax-slate);
+}
+
+.pipeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin: 3.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: stage;
+}
+
+/* The line that joins the four stages */
+.pipeline::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ax-ink) 0 82%, transparent);
+}
+
+.stage {
+  position: relative;
+  counter-increment: stage;
+}
+
+.stageNode {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ax-surface);
+  border: 2px solid var(--ax-ink);
+}
+
+.stage:last-child .stageNode {
+  background: var(--ax-sodium);
+}
+
+.stageTool {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 750;
+  font-stretch: 115%;
+}
+
+.stageTool::before {
+  content: counter(stage) '  ';
+  white-space: pre;
+  color: var(--ax-sodium-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.stageText {
+  margin: 0;
+  color: var(--ax-slate);
+  font-size: 0.975rem;
+}
+
+.projectLinks a,
+.contactLinks a {
+  text-decoration: underline;
+}
+
+.projectLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin: 3rem 0 0;
+  font-weight: 650;
+}
+
+/* ---------- Certifications ---------- */
+
+.certs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ax-line);
+}
+
+.cert {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  gap: 1.25rem;
+  padding: 1.25rem 1rem 1.25rem 0;
+  border-bottom: 1px solid var(--ax-line);
+  color: var(--ax-ink);
+  text-decoration: none;
+  height: 100%;
+}
+
+.cert:hover {
+  color: var(--ax-sodium-deep);
+  text-decoration: none;
+}
+
+.cert:hover .certName {
+  text-decoration: underline;
+}
+
+.certBadge {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.certName {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* ---------- Toolbox ---------- */
+
+.toolbox {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 3rem;
+  margin: 0;
+}
+
+.tool dt {
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.tool dd {
+  margin: 0;
+  color: var(--ax-slate);
+}
+
+/* ---------- Writing ---------- */
+
+.writing {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 3rem;
+}
+
+.writingLink {
+  display: block;
+  padding-top: 1rem;
+  border-top: 2px solid var(--ax-ink);
+  color: var(--ax-ink);
+  text-decoration: none;
+}
+
+.writingLink:hover {
+  color: var(--ax-ink);
+  text-decoration: none;
+  border-top-color: var(--ax-sodium);
+}
+
+.writingLink:hover .writingTitle {
+  text-decoration: underline;
+}
+
+.writingTitle {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 750;
+  font-stretch: 112%;
+}
+
+.writingText {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--ax-slate);
+}
+
+/* ---------- Contact ---------- */
+
+.contact {
+  background: var(--ax-night);
+  color: #e6e8f2;
+  padding: clamp(4.5rem, 9vw, 7rem) 0 clamp(3.5rem, 7vw, 5rem);
+}
+
+.contactTitle {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  font-stretch: 122%;
+  letter-spacing: -0.02em;
+}
+
+.contactLede {
+  margin: 0.75rem 0 2rem;
+  max-width: 40rem;
+  color: var(--ax-mist);
+  font-size: 1.125rem;
+}
+
+.contactEmail {
+  display: inline-block;
+  color: var(--ax-sodium);
+  font-size: clamp(1.6rem, 5.5vw, 4rem);
+  font-weight: 750;
+  font-stretch: 118%;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
+}
+
+.contactEmail:hover {
+  color: var(--ax-sodium-hot);
+}
+
+.contactLinks {
+  display: flex;
   flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contactLinks a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.contactLinks a:hover {
+  color: var(--ax-sodium);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 996px) {
+  .split,
+  .projectHead {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pipeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
+
+  .pipeline::before {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 0 16px;
+  }
+
+  .pipeline {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  /* Vertical rail on phones */
+  .stage {
+    padding: 0 0 2rem 2.25rem;
+  }
+
+  .stage::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 10px;
+    bottom: -10px;
+    width: 2px;
+    background: var(--ax-ink);
+  }
+
+  .stage:last-child::before {
+    display: none;
+  }
+
+  .stageNode {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .stageTool {
+    margin-top: -0.15rem;
+  }
+
+  .certs,
+  .toolbox,
+  .writing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
 }

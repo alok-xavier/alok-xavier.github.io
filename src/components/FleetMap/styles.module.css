@@ -1,0 +1,68 @@
+.map {
+  --dot: 7px;
+  --gap: 3px;
+  --street: 16px;
+  --off: #2b3258;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--street) calc(var(--street) + 2px);
+}
+
+.block {
+  display: grid;
+  grid-template-rows: repeat(var(--rows), var(--dot));
+  grid-auto-flow: column;
+  grid-auto-columns: var(--dot);
+  gap: var(--gap);
+}
+
+.light {
+  display: block;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 1.5px;
+  background: var(--off);
+  animation: switchOn 700ms ease-out both;
+  animation-delay: calc(350ms + var(--b) * 55ms + var(--c) * 9ms);
+}
+
+.on {
+  --lit: #f5b544;
+}
+
+.dim {
+  --lit: #a77a32;
+}
+
+.hot {
+  --lit: #ffe7b0;
+}
+
+@keyframes switchOn {
+  0% {
+    background: var(--off);
+  }
+  35% {
+    background: #fff4d9;
+  }
+  100% {
+    background: var(--lit);
+  }
+}
+
+@media (max-width: 720px) {
+  .map {
+    --dot: 5px;
+    --gap: 2px;
+    --street: 10px;
+  }
+}
+
+/* Keep the last row left-packed instead of spread across the width */
+.map::after {
+  content: '';
+  flex: auto;
+}

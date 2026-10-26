@@ -1,7 +1,4 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import {themes as prismThemes} from 'prism-react-renderer';
@@ -10,36 +7,34 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Alok Xavier | DevOps & SRE',
-  tagline: 'Learning in public — Kubernetes, CI/CD, Linux & Cloud',
-  favicon: 'img/favicon.ico',
+  title: 'Alok Xavier',
+  tagline: 'SRE and DevOps engineer. I keep the lights on.',
+  favicon: 'img/favicon.svg',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    v4: true,
   },
 
-  // Set the production url of your site here
   url: 'https://alok-xavier.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'alok-xavier', // Usually your GitHub org/user name.
-  projectName: 'alok-xavier.github.io', // Usually your repo name.
+  // GitHub Pages deployment config — keep in sync with the repo
+  organizationName: 'alok-xavier',
+  projectName: 'alok-xavier.github.io',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  headTags: [
+    {tagName: 'link', attributes: {rel: 'icon', href: '/img/favicon.ico', sizes: 'any'}},
+    {tagName: 'link', attributes: {rel: 'apple-touch-icon', href: '/img/apple-touch-icon.png'}},
+    {tagName: 'meta', attributes: {name: 'theme-color', content: '#161b33'}},
+  ],
 
   presets: [
     [
@@ -51,19 +46,27 @@ const config = {
           editUrl: 'https://github.com/alok-xavier/alok-xavier.github.io/tree/main/',
         },
         blog: {
+          blogTitle: 'Weekly learning log',
+          blogDescription: 'What Alok Xavier learned this week about SRE, DevOps, cloud and AIOps.',
+          blogSidebarTitle: 'Recent entries',
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
           },
           editUrl: 'https://github.com/alok-xavier/alok-xavier.github.io/tree/main/',
-          // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          // Fonts are self-hosted from npm (no Google Fonts request)
+          customCss: [
+            require.resolve('@fontsource-variable/archivo/wdth.css'),
+            require.resolve('@fontsource/jetbrains-mono/400.css'),
+            require.resolve('@fontsource/jetbrains-mono/600.css'),
+            './src/css/custom.css',
+          ],
         },
       }),
     ],
@@ -72,81 +75,56 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/social-card.png',
+      metadata: [
+        {name: 'keywords', content: 'SRE, DevOps, AWS, Terraform, Kubernetes, EKS, Argo CD, AIOps, Alok Xavier'},
+      ],
       colorMode: {
         defaultMode: 'light',
+        disableSwitch: true,
         respectPrefersColorScheme: false,
       },
       navbar: {
         title: 'Alok Xavier',
+        style: 'dark',
         logo: {
-          alt: 'Alok Xavier Logo',
+          alt: '',
           src: 'img/logo.svg',
+          width: 28,
+          height: 28,
         },
         items: [
+          {to: '/blog', label: 'Learning log', position: 'right'},
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/alok-xavier',
-            label: 'GitHub',
+            sidebarId: 'deepDives',
             position: 'right',
+            label: 'Deep dives',
+          },
+          {href: 'https://github.com/alok-xavier', label: 'GitHub', position: 'right'},
+          {
+            href: 'pathname:///files/resume.pdf',
+            label: 'Résumé',
+            position: 'right',
+            className: 'ax-nav-resume',
+            target: '_blank',
           },
         ],
       },
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Connect',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/alok-xavier',
-              },
-              {
-                label: 'LinkedIn',
-                href: 'https://www.linkedin.com/in/alok-xavier',
-              },
-              {
-                label: 'Email',
-                href: 'mailto:alokx6@gmail.com',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/alok-xavier',
-              },
-            ],
-          },
+          {label: 'Email', href: 'mailto:alokx6@gmail.com'},
+          {label: 'LinkedIn', href: 'https://www.linkedin.com/in/alok-xavier'},
+          {label: 'GitHub', href: 'https://github.com/alok-xavier'},
+          {label: 'RSS', href: 'pathname:///blog/rss.xml'},
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Alok Xavier. Built with Docusaurus.`,
+        copyright: `© ${new Date().getFullYear()} Alok Xavier`,
       },
       prism: {
-        theme: prismThemes.github,
+        theme: prismThemes.oneLight,
         darkTheme: prismThemes.dracula,
+        additionalLanguages: ['hcl', 'bash', 'yaml'],
       },
     }),
 };

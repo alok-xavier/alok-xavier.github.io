@@ -1,30 +1,275 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Global theme for alok-xavier.github.io
+ *
+ * Concept: "keeping the lights on". Night-shift indigo frames the page
+ * (navbar, hero, contact, footer); sodium-lamp amber is the only accent
+ * and is used for lit things — servers, primary actions, focus.
+ * Type: Archivo throughout; its width axis does the heavy lifting
+ * (wide + heavy for display, normal width for reading).
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Palette */
+  --ax-night: #161b33;
+  --ax-night-2: #232a4d;
+  --ax-night-line: #343c66;
+  --ax-sodium: #f5b544;
+  --ax-sodium-hot: #ffe7b0;
+  --ax-sodium-deep: #9a5a00; /* amber that passes contrast on paper */
+  --ax-paper: #f5f6f8;
+  --ax-surface: #ffffff;
+  --ax-ink: #161b33;
+  --ax-slate: #555b72;
+  --ax-mist: #b9bfd6;
+  --ax-line: #dde0e8;
+
+  --ax-wrap: 1180px;
+  --ax-gutter: 24px;
+
+  /* Infima overrides */
+  --ifm-color-primary: #9a5a00;
+  --ifm-color-primary-dark: #8b5100;
+  --ifm-color-primary-darker: #834d00;
+  --ifm-color-primary-darkest: #6c3f00;
+  --ifm-color-primary-light: #a96300;
+  --ifm-color-primary-lighter: #b16700;
+  --ifm-color-primary-lightest: #c87500;
+
+  --ifm-background-color: var(--ax-paper);
+  --ifm-background-surface-color: var(--ax-surface);
+  --ifm-font-color-base: var(--ax-ink);
+  --ifm-heading-color: var(--ax-ink);
+  --ifm-color-content-secondary: var(--ax-slate);
+
+  --ifm-font-family-base: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ifm-heading-font-family: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ifm-font-size-base: 17px;
+  --ifm-line-height-base: 1.65;
+  --ifm-heading-font-weight: 750;
+  --ifm-heading-line-height: 1.15;
+
+  --ifm-link-color: var(--ax-sodium-deep);
+  --ifm-link-hover-color: var(--ax-ink);
+  --ifm-link-decoration: none;
+  --ifm-link-hover-decoration: underline;
+
+  --ifm-navbar-background-color: var(--ax-night);
+  --ifm-navbar-height: 4rem;
+  --ifm-navbar-shadow: none;
+  --ifm-footer-background-color: var(--ax-night);
+
+  --ifm-code-font-size: 90%;
+  --ifm-code-background: #e9ebf1;
+  --ifm-global-radius: 6px;
+  --ifm-button-border-radius: 6px;
+  --ifm-toc-border-color: var(--ax-line);
+  --ifm-hr-background-color: var(--ax-line);
+  --docusaurus-highlighted-code-line-bg: rgba(22, 27, 51, 0.08);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+body {
+  background: var(--ax-paper);
+  color: var(--ax-ink);
+  font-feature-settings: 'ss01' on;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-stretch: 112%;
+  letter-spacing: -0.01em;
+}
+
+a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--ax-sodium);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+::selection {
+  background: var(--ax-sodium);
+  color: var(--ax-night);
+}
+
+/* ---------- Navbar ---------- */
+
+.navbar,
+.navbar--dark {
+  background-color: var(--ax-night);
+  border-bottom: 1px solid var(--ax-night-line);
+}
+
+.navbar__brand,
+.navbar__brand:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar__brand {
+  gap: 0.25rem;
+}
+
+.navbar__title {
+  font-weight: 700;
+  font-stretch: 115%;
+  letter-spacing: 0;
+}
+
+.navbar__logo {
+  height: 1.75rem;
+}
+
+.navbar--dark .navbar__link {
+  font-weight: 500;
+  color: #d7dbea;
+  text-decoration: none;
+}
+
+.navbar--dark .navbar__link:hover,
+.navbar--dark .navbar__link--active {
+  color: var(--ax-sodium);
+}
+
+.navbar__item.ax-nav-resume {
+  margin-left: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--ax-night-line);
+  border-radius: 6px;
+}
+
+.navbar__item.ax-nav-resume:hover {
+  border-color: var(--ax-sodium);
+}
+
+/* External-link glyph is noise in the navbar and footer */
+.navbar svg[class*='iconExternalLink'],
+.footer svg[class*='iconExternalLink'] {
+  display: none;
+}
+
+.navbar-sidebar {
+  background: var(--ax-night);
+}
+
+.navbar-sidebar .menu__link {
+  color: #d7dbea;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  border-top: 1px solid var(--ax-night-line);
+  padding: 2rem var(--ax-gutter);
+}
+
+.footer--dark {
+  background-color: var(--ax-night);
+  --ifm-footer-link-color: #c3c8dd;
+  --ifm-footer-link-hover-color: var(--ax-sodium);
+  --ifm-footer-color: #8f95b2;
+}
+
+.footer__links {
+  margin-bottom: 0;
+}
+
+.footer__link-item {
+  text-decoration: none;
+}
+
+.footer__copyright {
+  font-size: 0.875rem;
+}
+
+/* ---------- Docs & blog reading pages ---------- */
+
+/* Body-copy links are underlined; navigation chrome is not */
+.markdown a,
+article .markdown a {
+  text-decoration: underline;
+}
+
+article header h1 a,
+article header h2 a,
+.blog-post-page article header h1 {
+  color: var(--ax-ink);
+  text-decoration: none;
+}
+
+article header h2 a:hover {
+  color: var(--ax-sodium-deep);
+}
+
+.markdown {
+  --ifm-h1-font-size: clamp(2rem, 4vw, 2.75rem);
+  --ifm-h2-font-size: 1.6rem;
+  --ifm-h3-font-size: 1.25rem;
+  max-width: 72ch;
+}
+
+.markdown h1 {
+  font-weight: 800;
+  font-stretch: 118%;
+}
+
+.markdown > h2 {
+  margin-top: 2.5rem;
+}
+
+.markdown blockquote {
+  border-left-color: var(--ax-sodium);
+  background: var(--ax-surface);
+  padding: 0.75rem 1.25rem;
+  color: var(--ax-slate);
+}
+
+.menu__link {
+  font-weight: 500;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background: rgba(245, 181, 68, 0.18);
+  color: var(--ax-ink);
+}
+
+.table-of-contents__link--active {
+  color: var(--ax-sodium-deep);
+  font-weight: 600;
+}
+
+article .avatar__name a {
+  text-decoration: none;
+}
+
+.pagination-nav__link {
+  border-color: var(--ax-line);
+  background: var(--ax-surface);
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ax-sodium);
+}
+
+.theme-doc-sidebar-container {
+  border-right-color: var(--ax-line) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

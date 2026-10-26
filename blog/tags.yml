@@ -1,19 +1,29 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+meta:
+  label: Meta
+  permalink: /meta
+  description: Notes about this log itself
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+sre:
+  label: SRE
+  permalink: /sre
+  description: Site reliability engineering
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+devops:
+  label: DevOps
+  permalink: /devops
+  description: CI/CD, infrastructure as code and delivery
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+aws:
+  label: AWS
+  permalink: /aws
+  description: Amazon Web Services
+
+kubernetes:
+  label: Kubernetes
+  permalink: /kubernetes
+  description: Kubernetes and EKS
+
+aiops:
+  label: AIOps
+  permalink: /aiops
+  description: Applying AI and ML to operations
