@@ -1,0 +1,277 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: var(--ax-night-2);
+  border: 1px solid var(--ax-night-line);
+  border-radius: 12px;
+}
+
+.panelTitle {
+  margin: 0;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 750;
+  font-stretch: 118%;
+}
+
+.panelText {
+  margin: 0.4rem 0 1.1rem;
+  color: var(--ax-mist);
+  font-size: 0.975rem;
+  max-width: 44ch;
+}
+
+.toy {
+  margin-top: auto;
+}
+
+.stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 210px;
+  border-radius: 8px;
+  background: #12162b;
+  border: 1px solid var(--ax-night-line);
+  overflow: hidden;
+  color: #e6e8f2;
+  font: inherit;
+}
+
+.stageMsg {
+  margin: 0;
+  color: var(--ax-mist);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-top: 0.85rem;
+}
+
+.stat {
+  color: var(--ax-mist);
+  font-size: 0.9rem;
+}
+
+.stat strong {
+  color: #fff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ctrl,
+.ctrlPrimary {
+  min-height: 2.25rem;
+  padding: 0 0.95rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 650;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+
+.ctrl {
+  background: transparent;
+  border: 1px solid var(--ax-night-line);
+  color: #fff;
+}
+
+.ctrl:hover {
+  border-color: var(--ax-sodium);
+  color: var(--ax-sodium);
+}
+
+.ctrlPrimary {
+  background: var(--ax-sodium);
+  border: 0;
+  color: var(--ax-night);
+}
+
+.ctrlPrimary:hover {
+  background: var(--ax-sodium-hot);
+}
+
+/* ---------- F1 start lights ---------- */
+
+.f1Stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.gantry {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: #0c0f1f;
+  border-radius: 8px;
+}
+
+.lightPod {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.4rem;
+  background: #05070f;
+  border-radius: 6px;
+}
+
+.bulb {
+  width: clamp(18px, 4vw, 26px);
+  height: clamp(18px, 4vw, 26px);
+  border-radius: 50%;
+  background: #2a1214;
+  transition: background-color 60ms linear, box-shadow 60ms linear;
+}
+
+.bulbOn {
+  background: #ff2d2d;
+  box-shadow: 0 0 14px 2px rgba(255, 45, 45, 0.7);
+}
+
+/* ---------- Barbell ---------- */
+
+.barSvg {
+  display: block;
+  width: 100%;
+  height: 150px;
+  margin-top: 6px;
+}
+
+.bigNum {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  margin: 0;
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: 800;
+  font-stretch: 120%;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.bigNum span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ax-mist);
+}
+
+.plateBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.plateBtn {
+  min-width: 2.6rem;
+  min-height: 2.25rem;
+  padding: 0 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--ax-night-line);
+  border-bottom: 3px solid var(--plate);
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.plateBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.plateBtn:active {
+  transform: translateY(1px);
+}
+
+/* ---------- Rain ---------- */
+
+.rainCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: none;
+}
+
+/* ---------- Aim trainer ---------- */
+
+.range {
+  cursor: crosshair;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 24px 24px,
+    #12162b;
+}
+
+.rangeIdle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1rem;
+}
+
+.target {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  cursor: crosshair;
+  background: radial-gradient(circle, #fff 0 18%, #ff4655 19% 42%, #fff 43% 52%, #ff4655 53% 100%);
+  box-shadow: 0 0 0 2px rgba(255, 70, 85, 0.25), 0 0 18px rgba(255, 70, 85, 0.45);
+  animation: pop 160ms ease-out;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.crosshairHint {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 1.15rem;
+  }
+}

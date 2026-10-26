@@ -8,7 +8,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Alok Xavier',
-  tagline: 'SRE and DevOps engineer. I keep the lights on.',
+  tagline: 'SRE moving into AIOps.',
   favicon: 'img/favicon.svg',
 
   future: {
@@ -41,10 +41,10 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/alok-xavier/alok-xavier.github.io/tree/main/',
-        },
+        // Deep dives (docs) are switched off until there is real content.
+        // To turn them back on, restore a docs/ folder, sidebars.js and this block:
+        // docs: {sidebarPath: './sidebars.js'},
+        docs: false,
         blog: {
           blogTitle: 'Weekly learning log',
           blogDescription: 'What Alok Xavier learned this week about SRE, DevOps, cloud and AIOps.',
@@ -95,12 +95,6 @@ const config = {
         },
         items: [
           {to: '/blog', label: 'Learning log', position: 'right'},
-          {
-            type: 'docSidebar',
-            sidebarId: 'deepDives',
-            position: 'right',
-            label: 'Deep dives',
-          },
           {href: 'https://github.com/alok-xavier', label: 'GitHub', position: 'right'},
           {
             href: 'pathname:///files/resume.pdf',

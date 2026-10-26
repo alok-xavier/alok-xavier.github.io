@@ -1,0 +1,278 @@
+.hero {
+  position: relative;
+  min-height: calc(100svh - var(--ifm-navbar-height));
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 70% at 50% 110%, #2a2f57 0%, transparent 60%),
+    var(--ax-night);
+  color: #e6e8f2;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.scene canvas {
+  display: block;
+}
+
+/* Keep the copy readable: fade the city out towards the top */
+.scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--ax-night) 0%, rgba(22, 27, 51, 0.85) 30%, rgba(22, 27, 51, 0) 58%);
+}
+
+.flatFallback {
+  position: absolute;
+  left: var(--ax-gutter);
+  right: var(--ax-gutter);
+  bottom: 5rem;
+  opacity: 0.85;
+}
+
+.inner {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ax-wrap);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vh, 5rem) var(--ax-gutter) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
+  gap: 2rem 4rem;
+  align-items: start;
+  pointer-events: none;
+}
+
+.inner a,
+.inner button,
+.portrait {
+  pointer-events: auto;
+}
+
+.hello {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--ax-sodium);
+  font-weight: 500;
+}
+
+.name {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.5rem, 11.5vw, 9rem);
+  font-weight: 850;
+  font-stretch: 125%;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.word {
+  display: block;
+  /* Clip each line so the word slides up from beneath it */
+  clip-path: inset(-0.1em -0.3em -0.14em -0.1em);
+}
+
+.wordInner {
+  display: block;
+}
+
+.lede {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.5;
+  color: #d3d7e8;
+  text-shadow: 0 1px 12px rgba(22, 27, 51, 0.9);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.btnPrimary,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 1.3rem;
+  border-radius: 6px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.btnPrimary {
+  background: var(--ax-sodium);
+  color: var(--ax-night);
+}
+
+.btnPrimary:hover {
+  background: var(--ax-sodium-hot);
+  color: var(--ax-night);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.btnGhost {
+  border: 1px solid var(--ax-night-line);
+  background: rgba(22, 27, 51, 0.55);
+  backdrop-filter: blur(6px);
+  color: #fff;
+}
+
+.btnGhost:hover {
+  border-color: var(--ax-sodium);
+  color: var(--ax-sodium);
+  text-decoration: none;
+}
+
+/* ---------- Portrait ---------- */
+
+.portrait {
+  position: relative;
+  margin: 0.75rem 0 0;
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(245, 181, 68, 0.55),
+    0 30px 60px -20px rgba(0, 0, 0, 0.7),
+    0 0 80px -10px rgba(245, 181, 68, 0.25);
+  will-change: transform;
+}
+
+.portraitImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.glare {
+  position: absolute;
+  top: -30%;
+  width: 60%;
+  height: 160%;
+  transform: translateX(-50%) rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 241, 207, 0.16), transparent);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* ---------- Footnote ---------- */
+
+.footnote {
+  width: 100%;
+  max-width: var(--ax-wrap);
+  margin: 0 auto;
+  padding: 1rem var(--ax-gutter) 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem 2rem;
+  font-size: 0.9rem;
+  color: var(--ax-mist);
+  pointer-events: none;
+}
+
+.footnote p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background: rgba(22, 27, 51, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: var(--ax-sodium);
+}
+
+.kbd {
+  pointer-events: auto;
+  background: rgba(22, 27, 51, 0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--ax-night-line);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  color: var(--ax-mist);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.kbd:hover {
+  color: #fff;
+  border-color: var(--ax-sodium);
+}
+
+.kbd kbd {
+  background: var(--ax-night-2);
+  border: 1px solid var(--ax-night-line);
+  box-shadow: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 0.05rem 0.35rem;
+}
+
+@media (max-width: 860px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portrait {
+    order: -1;
+    width: min(46vw, 200px);
+    margin: 0 0 0.5rem;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  /* On narrow screens the city sits under the copy instead of behind it */
+  .scene {
+    top: auto;
+    height: 380px;
+  }
+
+  .scene::after {
+    background: linear-gradient(180deg, var(--ax-night) 0%, rgba(22, 27, 51, 0) 35%);
+  }
+
+  .inner {
+    padding-bottom: 300px;
+  }
+
+  .kbd {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .inner,
+  .footnote {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+}

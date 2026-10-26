@@ -1,31 +1,42 @@
-import React from 'react';
-import Link from '@docusaurus/Link';
+import React, {useMemo, useState} from 'react';
 import Layout from '@theme/Layout';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import {useHistory} from '@docusaurus/router';
+import {AnimatePresence, motion} from 'framer-motion';
+import Hero from '@site/src/components/Hero';
+import Interests from '@site/src/components/Interests';
+import Projects from '@site/src/components/Projects';
 import FleetMap from '@site/src/components/FleetMap';
+import CommandPalette from '@site/src/components/CommandPalette';
 import styles from './index.module.css';
 
 const EMAIL = 'alokx6@gmail.com';
 const LINKEDIN = 'https://www.linkedin.com/in/alok-xavier';
 const GITHUB = 'https://github.com/alok-xavier';
-const PROJECT_REPO = 'https://github.com/alok-xavier/EKS-GitOps-DevOps-Project';
 
 /* ------------------------------------------------------------------ */
-/* Content — edit here                                                 */
+/* Content: edit here                                                  */
 /* ------------------------------------------------------------------ */
 
-const fleetFacts = [
-  {value: '16+', label: 'enterprise applications'},
-  {value: '23+', label: 'AWS accounts'},
-  {value: '1,500+', label: 'servers'},
-  {value: '500+', label: 'SSL certificates'},
+const facts = [
+  {k: 'Based in', v: 'Kochi, Kerala'},
+  {k: 'Day job', v: 'SRE at Tata Consultancy Services, since 2021'},
+  {k: 'Learning', v: 'AIOps, AI agents and how to evaluate them'},
+  {k: 'Off the clock', v: 'F1, the gym, rainy rides, Valorant esports'},
 ];
 
-const workGroups = [
+const dayJobFacts = [
+  {value: '1,500+', label: 'servers'},
+  {value: '23+', label: 'AWS accounts'},
+  {value: '16+', label: 'applications'},
+  {value: '20%', label: 'cloud cost saved'},
+];
+
+const dayJobDetail = [
   {
     title: 'Keep production healthy',
     items: [
-      'Administer 1,500+ servers and the core AWS IaaS under them, with Terraform for infrastructure and Bitbucket, Jenkins, Argo CD and CodeCommit for delivery.',
+      'Run 1,500+ servers and the AWS infrastructure under them, with Terraform for infrastructure and Bitbucket, Jenkins, Argo CD and CodeCommit for delivery.',
       'Renew and track 500+ SSL certificates across CloudFront, ALB and NLB.',
       'Coordinate monthly OS patching, AMI upgrades and security updates across a multi-account estate.',
     ],
@@ -33,43 +44,17 @@ const workGroups = [
   {
     title: 'Ship and recover',
     items: [
-      'Primary contact for deployment support, pipeline failures and P1 incidents, pulling in application, platform and network teams to restore service.',
-      'Built observability dashboards with application teams in CloudWatch, Splunk, Dynatrace and Grafana, and handle alerts escalated from L1.',
+      'First contact for deployment support, pipeline failures and P1 incidents.',
+      'Built observability dashboards with app teams in CloudWatch, Splunk, Dynatrace and Grafana.',
     ],
   },
   {
     title: 'Spend less',
-    figure: '20%',
-    figureLabel: 'cloud cost saved',
-    items: [
-      'Partnered with FinOps to onboard Sedai for AI-driven cost anomaly detection, moved storage from gp2 to gp3, and right-sized EC2 and EKS workloads.',
-    ],
+    items: ['Onboarded Sedai with FinOps for AI-driven cost anomaly detection, moved gp2 to gp3 and right-sized EC2 and EKS: 20% saved.'],
   },
   {
     title: 'Recognition',
-    items: [
-      'Represented the team with AWS through assessment and validation for the AWS Resilience Services Competency.',
-      'Received a Service and Commitment Award for that work.',
-    ],
-  },
-];
-
-const pipeline = [
-  {
-    tool: 'Terraform',
-    text: 'Provisions the VPC and EKS cluster from reusable modules. State lives in S3, locked with DynamoDB.',
-  },
-  {
-    tool: 'GitHub Actions',
-    text: 'On each pull request: build, unit tests and lint, then a Docker image tagged with the run ID.',
-  },
-  {
-    tool: 'Git',
-    text: 'CI writes the new image tag into the Kubernetes manifest, so Git is the record of what should be running.',
-  },
-  {
-    tool: 'Argo CD',
-    text: 'Watches the manifests and syncs every change into EKS. Rollback is a git revert.',
+    items: ['Helped secure the AWS Resilience Services Competency, and received a Service and Commitment Award for it.'],
   },
 ];
 
@@ -97,243 +82,270 @@ const certifications = [
 ];
 
 const toolbox = [
-  {group: 'Cloud', items: 'AWS, GCP, multi-account management'},
-  {group: 'Infrastructure as code', items: 'Terraform, CloudFormation, Ansible'},
-  {group: 'Containers', items: 'Docker, Kubernetes, Amazon EKS'},
-  {group: 'CI/CD and GitOps', items: 'Jenkins, GitHub Actions, Bitbucket Pipelines, Argo CD'},
-  {group: 'Observability', items: 'Grafana, Prometheus, Dynatrace, CloudWatch, Splunk'},
-  {group: 'Source control', items: 'Git, GitHub, Bitbucket, CodeCommit'},
-  {group: 'Scripting', items: 'Bash, Python, PowerShell'},
-  {group: 'Ways of working', items: 'Jira, ServiceNow, Confluence, Sedai'},
+  {group: 'Cloud', items: ['AWS', 'GCP']},
+  {group: 'Infrastructure as code', items: ['Terraform', 'CloudFormation', 'Ansible']},
+  {group: 'Containers', items: ['Docker', 'Kubernetes', 'Amazon EKS']},
+  {group: 'CI/CD and GitOps', items: ['Jenkins', 'GitHub Actions', 'Bitbucket Pipelines', 'Argo CD']},
+  {group: 'Observability', items: ['Grafana', 'Prometheus', 'Dynatrace', 'CloudWatch', 'Splunk']},
+  {group: 'AI', items: ['Gemini', 'LiteLLM', 'scikit-learn', 'Agent guardrails']},
+  {group: 'Scripting', items: ['Bash', 'Python', 'PowerShell']},
+  {group: 'Ways of working', items: ['Jira', 'ServiceNow', 'Confluence', 'Spec-driven development']},
 ];
 
 /* ------------------------------------------------------------------ */
 
-function Hero({resumeUrl}) {
+function SectionHead({id, title, intro, dark}) {
   return (
-    <header className={styles.hero}>
-      <div className={styles.wrap}>
-        <p className={styles.heroIntro}>Alok Xavier, SRE and DevOps engineer in Kochi, India</p>
-        <h1 className={styles.heroTitle}>I keep the lights on.</h1>
-        <p className={styles.heroLede}>
-          I'm on the global SRE team for Avis Budget Group at Tata Consultancy Services. I look after
-          deployments, pipelines and production incidents for applications that run around the clock,
-          and I'm moving that work towards AIOps.
-        </p>
-        <div className={styles.heroActions}>
-          <a className={styles.btnPrimary} href={resumeUrl} download>
-            Download résumé (PDF)
-          </a>
-          <a className={styles.btnGhost} href={`mailto:${EMAIL}`}>
-            Email me
-          </a>
-        </div>
-
-        <div className={styles.fleet}>
-          <FleetMap />
-          <div className={styles.legend}>
-            <p className={styles.legendKey}>
-              <span className={styles.legendDot} aria-hidden="true" />
-              One light per server I help run, grouped by AWS account
-            </p>
-            <dl className={styles.facts}>
-              {fleetFacts.map((f) => (
-                <div key={f.label} className={styles.fact}>
-                  <dt className={styles.factLabel}>{f.label}</dt>
-                  <dd className={styles.factValue}>{f.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </div>
-    </header>
+    <div className={styles.head}>
+      <motion.h2
+        id={id}
+        className={`${styles.title} ${dark ? styles.titleDark : ''}`}
+        initial={{opacity: 0, x: -16}}
+        whileInView={{opacity: 1, x: 0}}
+        viewport={{once: true, margin: '-60px'}}
+        transition={{duration: 0.6, ease: [0.2, 0.7, 0.2, 1]}}>
+        {title}
+      </motion.h2>
+      {intro && <p className={`${styles.intro} ${dark ? styles.introDark : ''}`}>{intro}</p>}
+    </div>
   );
 }
 
-function Work() {
+function About() {
   return (
-    <section className={styles.section} id="work" aria-labelledby="work-title">
+    <section className={styles.section} id="about" aria-labelledby="about-title">
       <div className={`${styles.wrap} ${styles.split}`}>
-        <div className={styles.rail}>
-          <h2 id="work-title" className={styles.sectionTitle}>Work</h2>
-          <div className={styles.role}>
-            <p className={styles.roleTitle}>Systems Engineer, SRE and DevOps</p>
-            <p className={styles.roleMeta}>Tata Consultancy Services, Kochi</p>
-            <p className={styles.roleMeta}>
-              <time dateTime="2021-08">Aug 2021</time> to present
-            </p>
-            <p className={styles.roleClient}>
-              Global SRE team for Avis Budget Group, responsible for reliability, CI/CD and platform
-              infrastructure.
-            </p>
-          </div>
-        </div>
-
-        <div className={styles.groups}>
-          {workGroups.map((g) => (
-            <div key={g.title} className={styles.group}>
-              <h3 className={styles.groupTitle}>{g.title}</h3>
-              {g.figure && (
-                <p className={styles.figure}>
-                  <span className={styles.figureValue}>{g.figure}</span>
-                  <span className={styles.figureLabel}>{g.figureLabel}</span>
-                </p>
-              )}
-              <ul className={styles.groupList}>
-                {g.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          <div className={styles.education}>
-            <h3 className={styles.groupTitle}>Education</h3>
+        <SectionHead id="about-title" title="About me" />
+        <div>
+          <div className={styles.bio}>
             <p>
-              B.Tech in Engineering, Federal Institute of Science and Technology, Angamaly
-              <br />
-              <span className={styles.muted}>2017 to 2021</span>
+              I'm Alok, a site reliability engineer from Kerala. Since 2021 I've been on the team that keeps a
+              global car-rental platform running: deployments, pipelines, certificates, and the incidents that
+              never wait for office hours.
+            </p>
+            <p>
+              Lately I've been pointing that experience at AI. This year my team took two AI builds to hackathon
+              finals. Both show the evidence behind every answer, because that's what I'd want from a tool at
+              3&nbsp;a.m.
+            </p>
+            <p>
+              I'm a curious generalist. When something breaks I want to know why, and then I want to automate it.
             </p>
           </div>
+          <dl className={styles.facts}>
+            {facts.map((f) => (
+              <div key={f.k} className={styles.fact}>
+                <dt>{f.k}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
   );
 }
 
-function Project() {
+function OffTheClock() {
   return (
-    <section className={`${styles.section} ${styles.sectionAlt}`} id="project" aria-labelledby="project-title">
+    <section className={`${styles.section} ${styles.dark}`} id="interests" aria-labelledby="interests-title">
       <div className={styles.wrap}>
-        <div className={styles.projectHead}>
-          <h2 id="project-title" className={styles.sectionTitle}>
-            GitOps on Amazon EKS
-          </h2>
-          <p className={styles.projectLede}>
-            A side project that runs the OpenTelemetry demo shop, a set of microservices, on EKS. Every
-            layer is declared in Git, from the cluster to the image tag, and nothing reaches the cluster
-            by hand.
+        <SectionHead
+          id="interests-title"
+          title="Off the clock"
+          intro="Four things I'd rather be doing. Each one is playable."
+          dark
+        />
+        <Interests />
+      </div>
+    </section>
+  );
+}
+
+function Builds() {
+  return (
+    <section className={styles.section} id="builds" aria-labelledby="builds-title">
+      <div className={styles.wrap}>
+        <SectionHead
+          id="builds-title"
+          title="Hackathon builds"
+          intro="Two AI systems I built with Aravind S in 2026 using spec-driven development: write the spec first, then build and test against it. Both reached the finals."
+        />
+        <Projects />
+      </div>
+    </section>
+  );
+}
+
+function DayJob() {
+  const [open, setOpen] = useState(false);
+  return (
+    <section className={`${styles.section} ${styles.surface}`} id="work" aria-labelledby="work-title">
+      <div className={`${styles.wrap} ${styles.split}`}>
+        <div>
+          <SectionHead id="work-title" title="Day job" />
+          <p className={styles.role}>
+            <strong>Systems Engineer, SRE and DevOps</strong>
+            <br />
+            Tata Consultancy Services, Kochi. Aug 2021 to present.
           </p>
         </div>
-
-        <ol className={styles.pipeline}>
-          {pipeline.map((step) => (
-            <li key={step.tool} className={styles.stage}>
-              <span className={styles.stageNode} aria-hidden="true" />
-              <h3 className={styles.stageTool}>{step.tool}</h3>
-              <p className={styles.stageText}>{step.text}</p>
-            </li>
-          ))}
-        </ol>
-
-        <p className={styles.projectLinks}>
-          <a href={PROJECT_REPO}>Source on GitHub</a>
-          <Link to="/docs/eks-gitops-pipeline">Read the walk-through</Link>
-        </p>
+        <div>
+          <p className={styles.jobLede}>
+            I'm on the global SRE team for Avis Budget Group, looking after reliability, CI/CD and platform
+            infrastructure across their AWS estate.
+          </p>
+          <dl className={styles.jobFacts}>
+            {dayJobFacts.map((f) => (
+              <div key={f.label}>
+                <dd>{f.value}</dd>
+                <dt>{f.label}</dt>
+              </div>
+            ))}
+          </dl>
+          <div className={styles.miniMap} aria-hidden="true">
+            <FleetMap />
+          </div>
+          <button
+            type="button"
+            className={styles.expand}
+            aria-expanded={open}
+            aria-controls="work-detail"
+            onClick={() => setOpen((o) => !o)}>
+            {open ? 'Hide the details' : 'Show the details'}
+            <motion.span className={styles.chev} animate={{rotate: open ? 180 : 0}} aria-hidden="true">
+              ▾
+            </motion.span>
+          </button>
+          <AnimatePresence initial={false}>
+            {open && (
+              <motion.div
+                id="work-detail"
+                key="detail"
+                initial={{height: 0, opacity: 0}}
+                animate={{height: 'auto', opacity: 1}}
+                exit={{height: 0, opacity: 0}}
+                transition={{duration: 0.35, ease: [0.2, 0.7, 0.2, 1]}}
+                style={{overflow: 'hidden'}}>
+                <div className={styles.groups}>
+                  {dayJobDetail.map((g) => (
+                    <div key={g.title}>
+                      <h3 className={styles.groupTitle}>{g.title}</h3>
+                      <ul className={styles.groupList}>
+                        {g.items.map((it) => (
+                          <li key={it}>{it}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <div>
+                    <h3 className={styles.groupTitle}>Education</h3>
+                    <p className={styles.muted}>B.Tech, Federal Institute of Science and Technology, Angamaly. 2017 to 2021.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
 }
 
-function Certifications() {
+function Credentials() {
   return (
-    <section className={styles.section} id="certifications" aria-labelledby="certs-title">
+    <section className={styles.section} id="credentials" aria-labelledby="creds-title">
       <div className={`${styles.wrap} ${styles.split}`}>
-        <div className={styles.rail}>
-          <h2 id="certs-title" className={styles.sectionTitle}>Certifications</h2>
-          <p className={styles.muted}>Each badge opens its Credly verification page.</p>
+        <SectionHead id="creds-title" title="Certified" intro="Each badge opens its Credly verification page." />
+        <div>
+          <ul className={styles.certs}>
+            {certifications.map((c) => (
+              <motion.li key={c.name} whileHover={{y: -4}} transition={{type: 'spring', stiffness: 400, damping: 20}}>
+                <a className={styles.cert} href={c.url} target="_blank" rel="noopener noreferrer">
+                  <img src={c.badge} alt="" width="80" height="80" loading="lazy" className={styles.certBadge} />
+                  <span>{c.name}</span>
+                </a>
+              </motion.li>
+            ))}
+          </ul>
+
+          <h3 className={styles.subTitle}>Toolbox</h3>
+          <div className={styles.toolbox}>
+            {toolbox.map((t) => (
+              <div key={t.group} className={styles.toolGroup}>
+                <p className={styles.toolName}>{t.group}</p>
+                <ul className={styles.chips}>
+                  {t.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
-        <ul className={styles.certs}>
-          {certifications.map((c) => (
-            <li key={c.name}>
-              <a className={styles.cert} href={c.url} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={c.badge}
-                  alt=""
-                  width="88"
-                  height="88"
-                  loading="lazy"
-                  className={styles.certBadge}
-                />
-                <span className={styles.certName}>{c.name}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
 }
 
-function Toolbox() {
+function MagneticLink({href, children, className}) {
+  const [pos, setPos] = useState({x: 0, y: 0});
   return (
-    <section className={`${styles.section} ${styles.sectionTight}`} id="toolbox" aria-labelledby="toolbox-title">
-      <div className={`${styles.wrap} ${styles.split}`}>
-        <div className={styles.rail}>
-          <h2 id="toolbox-title" className={styles.sectionTitle}>Toolbox</h2>
-        </div>
-        <dl className={styles.toolbox}>
-          {toolbox.map((t) => (
-            <div key={t.group} className={styles.tool}>
-              <dt>{t.group}</dt>
-              <dd>{t.items}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
-
-function Writing() {
-  return (
-    <section className={`${styles.section} ${styles.sectionTight}`} id="writing" aria-labelledby="writing-title">
-      <div className={`${styles.wrap} ${styles.split}`}>
-        <div className={styles.rail}>
-          <h2 id="writing-title" className={styles.sectionTitle}>Writing</h2>
-        </div>
-        <div className={styles.writing}>
-          <Link to="/blog" className={styles.writingLink}>
-            <span className={styles.writingTitle}>Weekly learning log</span>
-            <span className={styles.writingText}>Short notes on what I picked up each week, in public.</span>
-          </Link>
-          <Link to="/docs/intro" className={styles.writingLink}>
-            <span className={styles.writingTitle}>Infrastructure deep dives</span>
-            <span className={styles.writingText}>Longer walk-throughs of how a system is put together and why.</span>
-          </Link>
-        </div>
-      </div>
-    </section>
+    <motion.a
+      href={href}
+      className={className}
+      animate={{x: pos.x, y: pos.y}}
+      transition={{type: 'spring', stiffness: 250, damping: 18, mass: 0.6}}
+      onPointerMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        setPos({x: (e.clientX - r.left - r.width / 2) * 0.12, y: (e.clientY - r.top - r.height / 2) * 0.25});
+      }}
+      onPointerLeave={() => setPos({x: 0, y: 0})}>
+      {children}
+    </motion.a>
   );
 }
 
 function Contact({resumeUrl}) {
+  const [copied, setCopied] = useState(false);
   return (
-    <section className={styles.contact} id="contact" aria-labelledby="contact-title">
+    <section className={`${styles.section} ${styles.dark} ${styles.contact}`} id="contact" aria-labelledby="contact-title">
       <div className={styles.wrap}>
-        <h2 id="contact-title" className={styles.contactTitle}>
-          Get in touch
-        </h2>
-        <p className={styles.contactLede}>
-          Happy to talk about SRE, platform engineering and AIOps. Email is the quickest way to reach me.
-        </p>
-        <a className={styles.contactEmail} href={`mailto:${EMAIL}`}>
+        <SectionHead
+          id="contact-title"
+          title="Say hello"
+          intro="Happy to talk about SRE, platform engineering, AIOps, or last Sunday's race. Email is the quickest way to reach me."
+          dark
+        />
+        <MagneticLink href={`mailto:${EMAIL}`} className={styles.email}>
           {EMAIL}
-        </a>
-        <ul className={styles.contactLinks}>
-          <li>
-            <a href={LINKEDIN}>LinkedIn</a>
-          </li>
-          <li>
-            <a href={GITHUB}>GitHub</a>
-          </li>
-          <li>
-            <a href={resumeUrl} download>
-              Résumé (PDF)
-            </a>
-          </li>
-        </ul>
+        </MagneticLink>
+        <div className={styles.contactRow}>
+          <button
+            type="button"
+            className={styles.copy}
+            onClick={() => {
+              navigator.clipboard?.writeText(EMAIL).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1800);
+              });
+            }}>
+            {copied ? 'Copied' : 'Copy address'}
+          </button>
+          <ul className={styles.contactLinks}>
+            <li>
+              <a href={LINKEDIN}>LinkedIn</a>
+            </li>
+            <li>
+              <a href={GITHUB}>GitHub</a>
+            </li>
+            <li>
+              <a href={resumeUrl} download>
+                Résumé (PDF)
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   );
@@ -341,19 +353,43 @@ function Contact({resumeUrl}) {
 
 export default function Home() {
   const resumeUrl = useBaseUrl('/files/resume.pdf');
+  const blogUrl = useBaseUrl('/blog');
+  const history = useHistory();
+  const [palette, setPalette] = useState(false);
+
+  const commands = useMemo(() => {
+    const go = (id) => () => document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    return [
+      {id: 'about', label: 'About me', group: 'Section', run: go('about')},
+      {id: 'interests', label: 'Off the clock', group: 'Section', keywords: 'f1 gym rain valorant', run: go('interests')},
+      {id: 'builds', label: 'Hackathon builds', group: 'Section', keywords: 'projects ai', run: go('builds')},
+      {id: 'covenant', label: 'Covenant Radar', group: 'Project', run: go('covenant-radar')},
+      {id: 'sentinel', label: 'SentinelIQ', group: 'Project', run: go('sentineliq')},
+      {id: 'work', label: 'Day job', group: 'Section', keywords: 'tcs experience', run: go('work')},
+      {id: 'creds', label: 'Certifications and toolbox', group: 'Section', keywords: 'skills', run: go('credentials')},
+      {id: 'contact', label: 'Say hello', group: 'Section', keywords: 'contact', run: go('contact')},
+      {id: 'resume', label: 'Download résumé', group: 'File', keywords: 'cv pdf', run: () => window.open(resumeUrl, '_blank')},
+      {id: 'email', label: 'Email Alok', group: 'Link', keywords: 'mail', run: () => (window.location.href = `mailto:${EMAIL}`)},
+      {id: 'linkedin', label: 'LinkedIn', group: 'Link', run: () => window.open(LINKEDIN, '_blank')},
+      {id: 'github', label: 'GitHub', group: 'Link', run: () => window.open(GITHUB, '_blank')},
+      {id: 'blog', label: 'Weekly learning log', group: 'Page', keywords: 'blog', run: () => history.push(blogUrl)},
+    ];
+  }, [resumeUrl, blogUrl, history]);
+
   return (
     <Layout
-      title="SRE and DevOps engineer"
-      description="Alok Xavier is an SRE and DevOps engineer running 1,500+ servers across 23+ AWS accounts for Avis Budget Group at TCS.">
+      title="SRE moving into AIOps"
+      description="Alok Xavier is an SRE from Kerala moving into AIOps. Two AI hackathon finals, 1,500+ servers kept running, and a soft spot for F1.">
       <main className={styles.page}>
-        <Hero resumeUrl={resumeUrl} />
-        <Work />
-        <Project />
-        <Certifications />
-        <Toolbox />
-        <Writing />
+        <Hero resumeUrl={resumeUrl} email={EMAIL} onOpenPalette={() => setPalette(true)} />
+        <About />
+        <OffTheClock />
+        <Builds />
+        <DayJob />
+        <Credentials />
         <Contact resumeUrl={resumeUrl} />
       </main>
+      <CommandPalette open={palette} setOpen={setPalette} commands={commands} />
     </Layout>
   );
 }

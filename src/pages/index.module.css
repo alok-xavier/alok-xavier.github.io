@@ -12,495 +12,307 @@
 
 .muted {
   color: var(--ax-slate);
-}
-
-/* ---------- Hero ---------- */
-
-.hero {
-  background: var(--ax-night);
-  color: #e6e8f2;
-  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(2.5rem, 5vw, 4rem);
-  overflow: hidden;
-}
-
-.heroIntro {
-  margin: 0 0 1.25rem;
-  font-size: 1.0625rem;
-  color: var(--ax-mist);
-}
-
-.heroTitle {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(3.25rem, 13.5vw, 8.25rem);
-  font-weight: 850;
-  font-stretch: 125%;
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-}
-
-.heroLede {
-  max-width: 40rem;
-  margin: 1.75rem 0 0;
-  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
-  line-height: 1.6;
-  color: #c9cde0;
-}
-
-.heroActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 2.25rem;
-}
-
-.btnPrimary,
-.btnGhost {
-  display: inline-flex;
-  align-items: center;
-  min-height: 3rem;
-  padding: 0 1.4rem;
-  border-radius: 6px;
-  font-weight: 650;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
-}
-
-.btnPrimary {
-  background: var(--ax-sodium);
-  color: var(--ax-night);
-}
-
-.btnPrimary:hover {
-  background: var(--ax-sodium-hot);
-  color: var(--ax-night);
-  text-decoration: none;
-}
-
-.btnGhost {
-  border: 1px solid var(--ax-night-line);
-  color: #fff;
-}
-
-.btnGhost:hover {
-  border-color: var(--ax-sodium);
-  color: var(--ax-sodium);
-  text-decoration: none;
-}
-
-.fleet {
-  margin-top: clamp(3rem, 7vw, 5rem);
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 1.5rem 3rem;
-  margin-top: 2rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--ax-night-line);
-}
-
-.legendKey {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin: 0;
-  font-size: 0.9375rem;
-  color: var(--ax-mist);
-}
-
-.legendDot {
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 1.5px;
-  background: var(--ax-sodium);
-}
-
-.facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 2.5rem;
   margin: 0;
 }
-
-.fact {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.factValue {
-  margin: 0;
-  color: #fff;
-  font-size: 1.75rem;
-  font-weight: 750;
-  font-stretch: 120%;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-
-.factLabel {
-  font-weight: 400;
-  font-size: 0.875rem;
-  color: var(--ax-mist);
-}
-
-/* ---------- Sections ---------- */
 
 .section {
-  padding: clamp(4rem, 8vw, 6.5rem) 0;
-  border-bottom: 1px solid var(--ax-line);
+  padding: clamp(4.5rem, 9vw, 7.5rem) 0;
 }
 
-.sectionTight {
-  padding: clamp(3rem, 6vw, 4.5rem) 0;
+.dark {
+  background: var(--ax-night);
+  color: #e6e8f2;
 }
 
-.sectionAlt {
+.surface {
   background: var(--ax-surface);
-}
-
-.sectionTitle {
-  margin: 0 0 1rem;
-  font-size: clamp(2rem, 3.4vw, 2.6rem);
-  font-weight: 800;
-  font-stretch: 122%;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  overflow-wrap: normal;
+  border-top: 1px solid var(--ax-line);
+  border-bottom: 1px solid var(--ax-line);
 }
 
 .split {
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: 2rem 4rem;
+  gap: 1.5rem 4rem;
 }
 
-.rail {
-  align-self: start;
+/* ---------- Section heads ---------- */
+
+.head {
+  margin-bottom: 2.5rem;
 }
 
-@media (min-width: 997px) {
-  .rail {
-    position: sticky;
-    top: calc(var(--ifm-navbar-height) + 2rem);
-  }
+.split .head {
+  margin-bottom: 0;
 }
 
-/* ---------- Work ---------- */
+/* Titles in the narrow left column need to fit on one line */
+.split .title {
+  font-size: clamp(2.2rem, 3.6vw, 3.1rem);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.4rem, 5.2vw, 4rem);
+  font-weight: 850;
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.titleDark {
+  color: #fff;
+}
+
+.intro {
+  max-width: 56ch;
+  margin: 1rem 0 0;
+  font-size: 1.1rem;
+  color: var(--ax-slate);
+}
+
+.introDark {
+  color: var(--ax-mist);
+}
+
+/* ---------- About ---------- */
+
+.bio p {
+  margin: 0 0 1.1rem;
+  max-width: 58ch;
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  line-height: 1.6;
+}
+
+.bio p:first-child {
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 2.5rem;
+  margin: 2.25rem 0 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--ax-line);
+}
+
+.fact dt {
+  font-size: 0.9rem;
+  color: var(--ax-slate);
+}
+
+.fact dd {
+  margin: 0.15rem 0 0;
+  font-weight: 650;
+}
+
+/* ---------- Day job ---------- */
 
 .role {
-  margin-top: 1.5rem;
+  margin: 1.25rem 0 0;
+  color: var(--ax-slate);
 }
 
-.role p {
+.role strong {
+  color: var(--ax-ink);
+}
+
+.jobLede {
+  margin: 0 0 1.5rem;
+  max-width: 56ch;
+  font-size: 1.15rem;
+}
+
+.jobFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.75rem;
+  margin: 0 0 1.75rem;
+}
+
+.jobFacts div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.jobFacts dd {
   margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  font-stretch: 120%;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
 }
 
-.roleTitle {
+.jobFacts dt {
+  color: var(--ax-slate);
+  font-size: 0.9rem;
+}
+
+.miniMap {
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: var(--ax-night);
+}
+
+.miniMap > div {
+  --dot: 4px;
+  --gap: 2px;
+  --street: 9px;
+}
+
+.expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--ax-line);
+  border-radius: 6px;
+  background: var(--ax-paper);
+  color: var(--ax-ink);
+  font: inherit;
   font-weight: 650;
-  font-size: 1.0625rem;
+  cursor: pointer;
 }
 
-.roleMeta {
-  color: var(--ax-slate);
+.expand:hover {
+  border-color: var(--ax-ink);
 }
 
-.roleClient {
-  margin-top: 1rem !important;
-  padding-left: 0.9rem;
-  border-left: 3px solid var(--ax-sodium);
-  color: var(--ax-slate);
-  max-width: 26rem;
+.chev {
+  display: inline-block;
 }
 
 .groups {
   display: grid;
-  gap: 2.75rem;
-}
-
-.group,
-.education {
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--ax-line);
-}
-
-.group:first-child {
-  padding-top: 0;
-  border-top: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 2.5rem;
+  padding-top: 1.75rem;
 }
 
 .groupTitle {
-  margin: 0 0 0.85rem;
-  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  font-stretch: 112%;
 }
 
 .groupList {
   margin: 0;
   padding-left: 1.1rem;
-  max-width: 62ch;
+  color: var(--ax-slate);
 }
 
 .groupList li {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
 }
 
 .groupList li::marker {
   color: var(--ax-sodium-deep);
 }
 
-.figure {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin: 0 0 0.75rem;
-}
-
-.figureValue {
-  font-size: clamp(3rem, 6vw, 4.25rem);
-  font-weight: 850;
-  font-stretch: 125%;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--ax-sodium-deep);
-}
-
-.figureLabel {
-  color: var(--ax-slate);
-}
-
-.education p {
-  margin: 0;
-}
-
-/* ---------- Project ---------- */
-
-.projectHead {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: 1rem 4rem;
-  align-items: end;
-}
-
-.projectLede {
-  margin: 0 0 1rem;
-  max-width: 60ch;
-  font-size: 1.125rem;
-  color: var(--ax-slate);
-}
-
-.pipeline {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2rem;
-  margin: 3.5rem 0 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: stage;
-}
-
-/* The line that joins the four stages */
-.pipeline::before {
-  content: '';
-  position: absolute;
-  top: 9px;
-  left: 9px;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--ax-ink) 0 82%, transparent);
-}
-
-.stage {
-  position: relative;
-  counter-increment: stage;
-}
-
-.stageNode {
-  position: relative;
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--ax-surface);
-  border: 2px solid var(--ax-ink);
-}
-
-.stage:last-child .stageNode {
-  background: var(--ax-sodium);
-}
-
-.stageTool {
-  margin: 1.25rem 0 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 750;
-  font-stretch: 115%;
-}
-
-.stageTool::before {
-  content: counter(stage) '  ';
-  white-space: pre;
-  color: var(--ax-sodium-deep);
-  font-variant-numeric: tabular-nums;
-}
-
-.stageText {
-  margin: 0;
-  color: var(--ax-slate);
-  font-size: 0.975rem;
-}
-
-.projectLinks a,
-.contactLinks a {
-  text-decoration: underline;
-}
-
-.projectLinks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 2rem;
-  margin: 3rem 0 0;
-  font-weight: 650;
-}
-
-/* ---------- Certifications ---------- */
+/* ---------- Credentials ---------- */
 
 .certs {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--ax-line);
 }
 
 .cert {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
-  padding: 1.25rem 1rem 1.25rem 0;
-  border-bottom: 1px solid var(--ax-line);
-  color: var(--ax-ink);
-  text-decoration: none;
+  gap: 0.75rem;
   height: 100%;
+  padding: 1.25rem 0.75rem;
+  border: 1px solid var(--ax-line);
+  border-radius: 10px;
+  background: var(--ax-surface);
+  color: var(--ax-ink);
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .cert:hover {
-  color: var(--ax-sodium-deep);
+  color: var(--ax-ink);
   text-decoration: none;
-}
-
-.cert:hover .certName {
-  text-decoration: underline;
+  border-color: var(--ax-sodium);
+  box-shadow: 0 16px 30px -18px rgba(22, 27, 51, 0.35);
 }
 
 .certBadge {
-  flex: none;
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
 
-.certName {
-  font-weight: 600;
-  line-height: 1.35;
+.subTitle {
+  margin: 3rem 0 1.25rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-stretch: 118%;
 }
-
-/* ---------- Toolbox ---------- */
 
 .toolbox {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem 3rem;
+  gap: 1.25rem 2.5rem;
+}
+
+.toolName {
+  margin: 0 0 0.45rem;
+  font-weight: 650;
+  font-size: 0.95rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.tool dt {
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-}
-
-.tool dd {
-  margin: 0;
+.chips li {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--ax-line);
+  border-radius: 6px;
+  background: var(--ax-surface);
   color: var(--ax-slate);
+  font-size: 0.875rem;
+  transition: border-color 120ms ease, color 120ms ease, transform 120ms ease;
 }
 
-/* ---------- Writing ---------- */
-
-.writing {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem 3rem;
-}
-
-.writingLink {
-  display: block;
-  padding-top: 1rem;
-  border-top: 2px solid var(--ax-ink);
+.chips li:hover {
+  border-color: var(--ax-sodium);
   color: var(--ax-ink);
-  text-decoration: none;
-}
-
-.writingLink:hover {
-  color: var(--ax-ink);
-  text-decoration: none;
-  border-top-color: var(--ax-sodium);
-}
-
-.writingLink:hover .writingTitle {
-  text-decoration: underline;
-}
-
-.writingTitle {
-  display: block;
-  font-size: 1.25rem;
-  font-weight: 750;
-  font-stretch: 112%;
-}
-
-.writingText {
-  display: block;
-  margin-top: 0.35rem;
-  color: var(--ax-slate);
+  transform: translateY(-1px);
 }
 
 /* ---------- Contact ---------- */
 
 .contact {
-  background: var(--ax-night);
-  color: #e6e8f2;
-  padding: clamp(4.5rem, 9vw, 7rem) 0 clamp(3.5rem, 7vw, 5rem);
+  padding-bottom: clamp(3.5rem, 7vw, 5rem);
 }
 
-.contactTitle {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  font-weight: 800;
-  font-stretch: 122%;
-  letter-spacing: -0.02em;
-}
-
-.contactLede {
-  margin: 0.75rem 0 2rem;
-  max-width: 40rem;
-  color: var(--ax-mist);
-  font-size: 1.125rem;
-}
-
-.contactEmail {
+.email {
   display: inline-block;
   color: var(--ax-sodium);
-  font-size: clamp(1.6rem, 5.5vw, 4rem);
-  font-weight: 750;
-  font-stretch: 118%;
+  font-size: clamp(1.6rem, 6vw, 4.5rem);
+  font-weight: 800;
+  font-stretch: 120%;
   letter-spacing: -0.02em;
   line-height: 1.1;
   text-decoration: underline;
@@ -509,15 +321,40 @@
   overflow-wrap: anywhere;
 }
 
-.contactEmail:hover {
+.email:hover {
   color: var(--ax-sodium-hot);
+  text-decoration: underline;
+}
+
+.contactRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 2.25rem;
+}
+
+.copy {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ax-night-line);
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copy:hover {
+  border-color: var(--ax-sodium);
+  color: var(--ax-sodium);
 }
 
 .contactLinks {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem 2rem;
-  margin: 2.5rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -525,6 +362,7 @@
 .contactLinks a {
   color: #fff;
   font-weight: 600;
+  text-decoration: underline;
 }
 
 .contactLinks a:hover {
@@ -534,18 +372,12 @@
 /* ---------- Responsive ---------- */
 
 @media (max-width: 996px) {
-  .split,
-  .projectHead {
+  .split {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .pipeline {
+  .certs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 2.5rem;
-  }
-
-  .pipeline::before {
-    display: none;
   }
 }
 
@@ -554,49 +386,9 @@
     padding: 0 16px;
   }
 
-  .pipeline {
+  .facts,
+  .groups,
+  .toolbox {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-  }
-
-  /* Vertical rail on phones */
-  .stage {
-    padding: 0 0 2rem 2.25rem;
-  }
-
-  .stage::before {
-    content: '';
-    position: absolute;
-    left: 9px;
-    top: 10px;
-    bottom: -10px;
-    width: 2px;
-    background: var(--ax-ink);
-  }
-
-  .stage:last-child::before {
-    display: none;
-  }
-
-  .stageNode {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-
-  .stageTool {
-    margin-top: -0.15rem;
-  }
-
-  .certs,
-  .toolbox,
-  .writing {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .facts {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
   }
 }

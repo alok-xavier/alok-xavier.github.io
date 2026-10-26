@@ -273,3 +273,9 @@ article .avatar__name a {
     scroll-behavior: auto !important;
   }
 }
+
+@media (max-width: 996px) {
+  .footer__links {
+    text-align: center;
+  }
+}

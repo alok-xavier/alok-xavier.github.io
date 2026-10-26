@@ -1,0 +1,54 @@
+import React from 'react';
+import {motion} from 'framer-motion';
+import StartLights from './StartLights';
+import Barbell from './Barbell';
+import RainRide from './RainRide';
+import AimTrainer from './AimTrainer';
+import styles from './styles.module.css';
+
+const INTERESTS = [
+  {
+    id: 'f1',
+    title: 'Formula 1',
+    text: 'Race weekends are blocked out in my calendar. Think your reactions are quick enough for a race start? Try it.',
+    Toy: StartLights,
+  },
+  {
+    id: 'gym',
+    title: 'The gym',
+    text: 'Lifting is how I reset after a long shift. Load the bar and see what you’d lift.',
+    Toy: Barbell,
+  },
+  {
+    id: 'rain',
+    title: 'Rides in the rain',
+    text: 'Kerala monsoon, a Honda CB350RS and an empty road. The best rides are the wet ones.',
+    Toy: RainRide,
+  },
+  {
+    id: 'valorant',
+    title: 'Valorant esports',
+    text: 'I follow the pro scene. Watching it makes everyone think they can flick. Can you?',
+    Toy: AimTrainer,
+  },
+];
+
+export default function Interests() {
+  return (
+    <div className={styles.grid}>
+      {INTERESTS.map(({id, title, text, Toy}, i) => (
+        <motion.article
+          key={id}
+          className={styles.panel}
+          initial={{opacity: 0, y: 28}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true, margin: '-60px'}}
+          transition={{duration: 0.6, delay: (i % 2) * 0.08, ease: [0.2, 0.7, 0.2, 1]}}>
+          <h3 className={styles.panelTitle}>{title}</h3>
+          <p className={styles.panelText}>{text}</p>
+          <Toy />
+        </motion.article>
+      ))}
+    </div>
+  );
+}

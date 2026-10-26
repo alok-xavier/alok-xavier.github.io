@@ -18,5 +18,3 @@ Most of what I learn on the job disappears into incident tickets and chat thread
 ## Ground rules
 
 Entries are short and specific. If something here turns out to be wrong, I'll fix the entry and say what changed.
-
-Longer write-ups, where a whole system needs explaining, go in [Deep dives](/docs/intro) instead.
