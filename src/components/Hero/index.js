@@ -1,153 +1,112 @@
-import React, {Suspense, useEffect, useRef, useState} from 'react';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import React, {useRef} from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import {motion, useMotionValue, useSpring, useTransform} from 'framer-motion';
-import FleetMap from '@site/src/components/FleetMap';
-import {hasWebGL, useInView, useReducedMotion} from '@site/src/lib/hooks';
+import Signature from '@site/src/components/Signature';
+import {scrollToId, useGsap} from '@site/src/lib/motion';
 import styles from './styles.module.css';
 
-const CityScene = React.lazy(() => import('./CityScene'));
+/**
+ * Story hero: a full-height photo, the name set huge across it, and the
+ * signature signing itself once the intro has lifted. On scroll the two
+ * lines of the name drift apart and the photo slides away slower than the page.
+ */
 
-function Portrait() {
-  const src = useBaseUrl('/img/alok-portrait.webp');
-  const fallback = useBaseUrl('/img/alok-portrait.jpg');
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const sx = useSpring(rx, {stiffness: 160, damping: 18});
-  const sy = useSpring(ry, {stiffness: 160, damping: 18});
-  const glareX = useTransform(sy, [-10, 10], ['20%', '80%']);
-
-  function onMove(e) {
-    const r = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    ry.set(x * 16);
-    rx.set(-y * 16);
-  }
-  function onLeave() {
-    rx.set(0);
-    ry.set(0);
-  }
-
-  return (
-    <motion.figure
-      className={styles.portrait}
-      style={{rotateX: sx, rotateY: sy, transformPerspective: 900}}
-      onPointerMove={onMove}
-      onPointerLeave={onLeave}
-      initial={{opacity: 0, y: 24, scale: 0.97}}
-      animate={{opacity: 1, y: 0, scale: 1}}
-      transition={{duration: 0.8, delay: 0.15, ease: [0.2, 0.7, 0.2, 1]}}>
-      <picture>
-        <source srcSet={src} type="image/webp" />
-        <img
-          src={fallback}
-          alt="Alok Xavier smiling in front of a waterfall in Kerala"
-          width="640"
-          height="800"
-          className={styles.portraitImg}
-        />
-      </picture>
-      <motion.span className={styles.glare} style={{left: glareX}} aria-hidden="true" />
-    </motion.figure>
-  );
+// The Intro component sets this flag in its effect, which runs before ours.
+function introPlaying() {
+  return typeof window !== 'undefined' && window.__axIntroPlaying === true;
 }
 
+const signDelay = () => (introPlaying() ? 3.4 : 0.4);
+
 export default function Hero({resumeUrl, email, onOpenPalette}) {
-  const section = useRef(null);
-  const pointer = useRef({x: 0, y: 0, active: false});
-  const reduced = useReducedMotion();
-  const inView = useInView(section);
-  const [webgl, setWebgl] = useState(true);
+  const root = useRef(null);
+  const photo = useBaseUrl('/img/photos/hills-900.webp');
+  const photoSmall = useBaseUrl('/img/photos/hills-480.webp');
 
-  useEffect(() => setWebgl(hasWebGL()), []);
+  useGsap(root, (gsap, ScrollTrigger, reduced) => {
+    const q = gsap.utils.selector(root);
+    if (reduced) return;
 
-  function onPointerMove(e) {
-    const r = section.current.getBoundingClientRect();
-    pointer.current.x = ((e.clientX - r.left) / r.width) * 2 - 1;
-    pointer.current.y = -(((e.clientY - r.top) / r.height) * 2 - 1);
-    pointer.current.active = true;
-  }
+    // Entrance only plays behind the intro curtain; otherwise the page is already visible, so no flash.
+    if (introPlaying()) {
+      const tl = gsap.timeline({delay: 2.45});
+      tl.from(q('[data-photo]'), {clipPath: 'inset(100% 0% 0% 0%)', duration: 1.1, ease: 'power4.inOut'})
+      .from(q('[data-photo] img'), {scale: 1.25, duration: 1.6, ease: 'power3.out'}, '<')
+      .from(q('[data-char]'), {yPercent: 115, duration: 0.9, ease: 'power4.out', stagger: 0.035}, '-=0.9')
+      .from(q('[data-fade]'), {autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.08}, '-=0.5');
+    }
+
+    // scroll: lines drift apart, photo lags behind
+    const st = {trigger: root.current, start: 'top top', end: 'bottom top', scrub: true};
+    gsap.to(q('[data-line="1"]'), {xPercent: -18, ease: 'none', scrollTrigger: st});
+    gsap.to(q('[data-line="2"]'), {xPercent: 12, ease: 'none', scrollTrigger: st});
+    gsap.to(q('[data-photo]'), {yPercent: 18, ease: 'none', scrollTrigger: st});
+    gsap.to(q('[data-cue]'), {autoAlpha: 0, ease: 'none', scrollTrigger: {...st, end: '20% top'}});
+  });
+
+  const line = (word, n) => (
+    <span className={styles.line} data-line={n}>
+      {word.split('').map((c, i) => (
+        <span key={i} className={styles.charWrap}>
+          <span className={styles.char} data-char>
+            {c}
+          </span>
+        </span>
+      ))}
+    </span>
+  );
 
   return (
-    <header
-      ref={section}
-      className={styles.hero}
-      onPointerMove={onPointerMove}
-      onPointerLeave={() => (pointer.current.active = false)}>
-      <div className={styles.scene} aria-hidden="true">
-        {webgl ? (
-          <BrowserOnly fallback={null}>
-            {() => (
-              <Suspense fallback={null}>
-                <CityScene pointer={pointer} reduced={reduced} running={inView} />
-              </Suspense>
-            )}
-          </BrowserOnly>
-        ) : (
-          <div className={styles.flatFallback}>
-            <FleetMap />
-          </div>
-        )}
+    <header ref={root} className={styles.hero}>
+      <div className={styles.photo} data-photo>
+        <img
+          src={photo}
+          srcSet={`${photoSmall} 480w, ${photo} 846w`}
+          sizes="(max-width: 996px) 100vw, 42vw"
+          alt="Alok Xavier on a hilltop in Kerala, with mist rolling over the forest behind him"
+          width="846"
+          height="1859"
+          fetchpriority="high"
+        />
       </div>
 
       <div className={styles.inner}>
-        <div className={styles.copy}>
-          <motion.p
-            className={styles.hello}
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            transition={{duration: 0.6}}>
-            Hi, I'm
-          </motion.p>
-          <h1 className={styles.name}>
-            {['Alok', 'Xavier'].map((word, i) => (
-              <span key={word} className={styles.word}>
-                <motion.span
-                  className={styles.wordInner}
-                  initial={{y: '105%'}}
-                  animate={{y: 0}}
-                  transition={{duration: 0.9, delay: 0.1 + i * 0.12, ease: [0.2, 0.75, 0.15, 1]}}>
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
-          <motion.p
-            className={styles.lede}
-            initial={{opacity: 0, y: 12}}
-            animate={{opacity: 1, y: 0}}
-            transition={{duration: 0.7, delay: 0.45}}>
-            SRE moving into AIOps. I keep production running, and I build AI that shows its working.
-          </motion.p>
-          <motion.div
-            className={styles.actions}
-            initial={{opacity: 0, y: 12}}
-            animate={{opacity: 1, y: 0}}
-            transition={{duration: 0.7, delay: 0.6}}>
-            <a className={styles.btnPrimary} href="#builds">
-              See what I've built
-            </a>
-            <a className={styles.btnGhost} href={resumeUrl} download>
+        <div className={styles.top}>
+          <p className={styles.kicker} data-fade>
+            SRE moving into AIOps
+            <br />
+            <span>Kochi, Kerala</span>
+          </p>
+          <button type="button" className={styles.latest} data-fade onClick={() => scrollToId('builds')}>
+            <span className={styles.latestLabel}>Latest</span>
+            <span className={styles.latestText}>Covenant Radar made the national final of an AI hackathon</span>
+          </button>
+        </div>
+
+        <h1 className={styles.name} aria-label="Alok Xavier">
+          {line('Alok', 1)}
+          {line('Xavier', 2)}
+        </h1>
+
+        <div className={styles.bottom}>
+          <div className={styles.actions} data-fade>
+            <a className={styles.btnPrimary} href={resumeUrl} download>
               Résumé (PDF)
             </a>
             <a className={styles.btnGhost} href={`mailto:${email}`}>
               Email me
             </a>
-          </motion.div>
+            <button type="button" className={styles.kbd} onClick={onOpenPalette}>
+              <kbd>Ctrl</kbd> <kbd>K</kbd>
+            </button>
+          </div>
+          <p className={styles.cue} data-cue data-fade>
+            Scroll <span className={styles.cueLine} aria-hidden="true" />
+          </p>
         </div>
-
-        <Portrait />
       </div>
 
-      <div className={styles.footnote}>
-        <p>
-          <span className={styles.dot} aria-hidden="true" />
-          Each light below is one of the 1,500 servers I help run. Move your pointer or finger across them.
-        </p>
-        <button type="button" className={styles.kbd} onClick={onOpenPalette}>
-          <kbd>Ctrl</kbd> <kbd>K</kbd> to jump anywhere
-        </button>
+      <div className={styles.sign}>
+        <Signature trigger="load" delay={signDelay} duration={1.5} color="#f5b544" strokeWidth={13} />
       </div>
     </header>
   );

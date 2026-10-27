@@ -15,7 +15,7 @@ const ACCOUNTS = 23;
 const SEED = 20210802;
 const CAM_Y = 5.2;
 const CAM_Z = 17;
-const LOOK_Y = 4.1; // looking above the city pushes it to the bottom of the frame
+const LOOK_Y = 4.7; // looking above the city pushes it to the bottom of the frame
 
 const OFF = new THREE.Color('#2b3258');
 const DIM = new THREE.Color('#a7742a');

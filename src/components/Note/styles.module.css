@@ -1,0 +1,88 @@
+.note {
+  padding: clamp(5rem, 12vw, 9rem) 0 clamp(4rem, 9vw, 7rem);
+  /* opaque, so the floating tech labels don't run behind the big type */
+  background: var(--ax-paper);
+}
+
+.wrap {
+  max-width: var(--ax-wrap);
+  margin: 0 auto;
+  padding: 0 var(--ax-gutter);
+}
+
+.label {
+  margin: 0 0 2rem;
+  font-size: 1rem;
+  font-weight: 650;
+  font-stretch: 100%;
+  letter-spacing: 0;
+  color: var(--ax-sodium-deep);
+}
+
+.text {
+  margin: 0;
+  max-width: 24ch;
+  font-size: clamp(2rem, 5vw, 4.4rem);
+  font-weight: 750;
+  font-stretch: 112%;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ax-ink);
+}
+
+.text .hot {
+  color: var(--ax-sodium-deep);
+}
+
+.foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
+  gap: 2rem 4rem;
+  align-items: end;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 3rem;
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ax-line);
+}
+
+.facts dt {
+  font-size: 0.85rem;
+  color: var(--ax-slate);
+}
+
+.facts dd {
+  margin: 0.15rem 0 0;
+  font-weight: 650;
+}
+
+.sign {
+  justify-self: end;
+  width: 100%;
+}
+
+@media (max-width: 996px) {
+  .text {
+    max-width: none;
+  }
+
+  .foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sign {
+    justify-self: start;
+    width: min(70vw, 300px);
+  }
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 0 16px;
+  }
+}

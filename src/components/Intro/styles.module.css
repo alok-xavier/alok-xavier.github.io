@@ -1,0 +1,72 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 24px;
+  background: var(--ax-night);
+  color: var(--ax-mist);
+  clip-path: inset(0 0 0 0);
+  /* Failsafe: if JavaScript never runs, get out of the way after 4 s */
+  animation: failsafe 0s linear 4s forwards;
+}
+
+@keyframes failsafe {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.term {
+  width: min(640px, 100%);
+  min-height: 6.5rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+  line-height: 1.7;
+}
+
+.term p {
+  margin: 0;
+}
+
+.ok {
+  color: #7ee2a8;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background: var(--ax-sodium);
+  vertical-align: -0.15em;
+  animation: blink 0.9s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.sign {
+  width: min(420px, 70vw);
+}
+
+.skip {
+  position: absolute;
+  bottom: 24px;
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6f7699;
+}
+
+/* Set by an inline head script for repeat visits in a session and for reduced motion,
+   so the overlay never paints at all. */
+:global(html.ax-no-intro) .intro {
+  display: none;
+}

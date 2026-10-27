@@ -1,7 +1,16 @@
 /* Homepage. Tokens live in src/css/custom.css (:root --ax-*). */
 
 .page {
+  position: relative;
   background: var(--ax-paper);
+}
+
+/* Every section sits above the floating background canvas.
+   Light sections stay transparent so the canvas shows through. */
+.page > header,
+.page > section {
+  position: relative;
+  z-index: 1;
 }
 
 .wrap {
@@ -25,7 +34,7 @@
 }
 
 .surface {
-  background: var(--ax-surface);
+  background: rgba(255, 255, 255, 0.72);
   border-top: 1px solid var(--ax-line);
   border-bottom: 1px solid var(--ax-line);
 }
@@ -301,7 +310,18 @@
   transform: translateY(-1px);
 }
 
+/* ---------- Off the clock body ---------- */
+
+.flush {
+  padding-top: 0;
+}
+
 /* ---------- Contact ---------- */
+
+.contactSign {
+  width: min(420px, 70vw);
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
 
 .contact {
   padding-bottom: clamp(3.5rem, 7vw, 5rem);

@@ -34,6 +34,13 @@ const config = {
     {tagName: 'link', attributes: {rel: 'icon', href: '/img/favicon.ico', sizes: 'any'}},
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', href: '/img/apple-touch-icon.png'}},
     {tagName: 'meta', attributes: {name: 'theme-color', content: '#161b33'}},
+    {
+      // Skip the homepage intro on repeat visits in a session (and for reduced motion) before first paint
+      tagName: 'script',
+      attributes: {},
+      innerHTML:
+        "try{if(sessionStorage.getItem('ax-intro')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('ax-no-intro')}catch(e){}",
+    },
   ],
 
   presets: [

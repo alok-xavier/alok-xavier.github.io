@@ -4,10 +4,17 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import {useHistory} from '@docusaurus/router';
 import {AnimatePresence, motion} from 'framer-motion';
 import Hero from '@site/src/components/Hero';
+import Intro from '@site/src/components/Intro';
+import Note from '@site/src/components/Note';
+import Gallery from '@site/src/components/Gallery';
+import Signature from '@site/src/components/Signature';
+import {ChapterCards, OffClockIntro, OnCallIntro} from '@site/src/components/Chapters';
+import {scrollToId, useSmoothScroll} from '@site/src/lib/motion';
 import Interests from '@site/src/components/Interests';
 import Projects from '@site/src/components/Projects';
-import FleetMap from '@site/src/components/FleetMap';
 import CommandPalette from '@site/src/components/CommandPalette';
+import Repos from '@site/src/components/Repos';
+import TechBackground from '@site/src/components/TechBackground';
 import styles from './index.module.css';
 
 const EMAIL = 'alokx6@gmail.com';
@@ -18,18 +25,11 @@ const GITHUB = 'https://github.com/alok-xavier';
 /* Content: edit here                                                  */
 /* ------------------------------------------------------------------ */
 
-const facts = [
-  {k: 'Based in', v: 'Kochi, Kerala'},
-  {k: 'Day job', v: 'SRE at Tata Consultancy Services, since 2021'},
-  {k: 'Learning', v: 'AIOps, AI agents and how to evaluate them'},
-  {k: 'Off the clock', v: 'F1, the gym, rainy rides, Valorant esports'},
-];
-
 const dayJobFacts = [
-  {value: '1,500+', label: 'servers'},
-  {value: '23+', label: 'AWS accounts'},
-  {value: '16+', label: 'applications'},
+  {value: '16+', label: 'enterprise applications'},
+  {value: '500+', label: 'SSL certificates'},
   {value: '20%', label: 'cloud cost saved'},
+  {value: '2021', label: 'on the team since'},
 ];
 
 const dayJobDetail = [
@@ -111,51 +111,11 @@ function SectionHead({id, title, intro, dark}) {
   );
 }
 
-function About() {
-  return (
-    <section className={styles.section} id="about" aria-labelledby="about-title">
-      <div className={`${styles.wrap} ${styles.split}`}>
-        <SectionHead id="about-title" title="About me" />
-        <div>
-          <div className={styles.bio}>
-            <p>
-              I'm Alok, a site reliability engineer from Kerala. Since 2021 I've been on the team that keeps a
-              global car-rental platform running: deployments, pipelines, certificates, and the incidents that
-              never wait for office hours.
-            </p>
-            <p>
-              Lately I've been pointing that experience at AI. This year my team took two AI builds to hackathon
-              finals. Both show the evidence behind every answer, because that's what I'd want from a tool at
-              3&nbsp;a.m.
-            </p>
-            <p>
-              I'm a curious generalist. When something breaks I want to know why, and then I want to automate it.
-            </p>
-          </div>
-          <dl className={styles.facts}>
-            {facts.map((f) => (
-              <div key={f.k} className={styles.fact}>
-                <dt>{f.k}</dt>
-                <dd>{f.v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function OffTheClock() {
   return (
-    <section className={`${styles.section} ${styles.dark}`} id="interests" aria-labelledby="interests-title">
+    <section className={`${styles.section} ${styles.dark} ${styles.flush}`} id="interests" aria-label="Interests you can play with">
       <div className={styles.wrap}>
-        <SectionHead
-          id="interests-title"
-          title="Off the clock"
-          intro="Four things I'd rather be doing. Each one is playable."
-          dark
-        />
+        <p className={styles.introDark}>Four things I’d rather be doing. Each one is playable.</p>
         <Interests />
       </div>
     </section>
@@ -172,6 +132,21 @@ function Builds() {
           intro="Two AI systems I built with Aravind S in 2026 using spec-driven development: write the spec first, then build and test against it. Both reached the finals."
         />
         <Projects />
+      </div>
+    </section>
+  );
+}
+
+function Shelf() {
+  return (
+    <section className={styles.section} id="shelf" aria-labelledby="shelf-title">
+      <div className={styles.wrap}>
+        <SectionHead
+          id="shelf-title"
+          title="On my shelf"
+          intro="Open-source projects I use, and the repos I learn from. Star counts are live from GitHub."
+        />
+        <Repos />
       </div>
     </section>
   );
@@ -203,9 +178,6 @@ function DayJob() {
               </div>
             ))}
           </dl>
-          <div className={styles.miniMap} aria-hidden="true">
-            <FleetMap />
-          </div>
           <button
             type="button"
             className={styles.expand}
@@ -346,6 +318,9 @@ function Contact({resumeUrl}) {
             </li>
           </ul>
         </div>
+        <div className={styles.contactSign}>
+          <Signature trigger="view" duration={1.6} color="#f5b544" strokeWidth={11} />
+        </div>
       </div>
     </section>
   );
@@ -356,15 +331,18 @@ export default function Home() {
   const blogUrl = useBaseUrl('/blog');
   const history = useHistory();
   const [palette, setPalette] = useState(false);
+  useSmoothScroll();
 
   const commands = useMemo(() => {
-    const go = (id) => () => document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    const go = (id) => () => scrollToId(id);
     return [
-      {id: 'about', label: 'About me', group: 'Section', run: go('about')},
-      {id: 'interests', label: 'Off the clock', group: 'Section', keywords: 'f1 gym rain valorant', run: go('interests')},
+      {id: 'about', label: 'A note from Alok', group: 'Section', keywords: 'about me', run: go('about')},
+      {id: 'oncall', label: 'On call', group: 'Chapter', keywords: 'work', run: go('on-call')},
+      {id: 'interests', label: 'Off the clock', group: 'Chapter', keywords: 'f1 car gym rain valorant', run: go('off-the-clock')},
       {id: 'builds', label: 'Hackathon builds', group: 'Section', keywords: 'projects ai', run: go('builds')},
       {id: 'covenant', label: 'Covenant Radar', group: 'Project', run: go('covenant-radar')},
       {id: 'sentinel', label: 'SentinelIQ', group: 'Project', run: go('sentineliq')},
+      {id: 'shelf', label: 'On my shelf', group: 'Section', keywords: 'repos github study learning', run: go('shelf')},
       {id: 'work', label: 'Day job', group: 'Section', keywords: 'tcs experience', run: go('work')},
       {id: 'creds', label: 'Certifications and toolbox', group: 'Section', keywords: 'skills', run: go('credentials')},
       {id: 'contact', label: 'Say hello', group: 'Section', keywords: 'contact', run: go('contact')},
@@ -381,14 +359,21 @@ export default function Home() {
       title="SRE moving into AIOps"
       description="Alok Xavier is an SRE from Kerala moving into AIOps. Two AI hackathon finals, 1,500+ servers kept running, and a soft spot for F1.">
       <main className={styles.page}>
+        <TechBackground />
         <Hero resumeUrl={resumeUrl} email={EMAIL} onOpenPalette={() => setPalette(true)} />
-        <About />
-        <OffTheClock />
+        <Note />
+        <Gallery />
+        <ChapterCards />
+        <OnCallIntro />
         <Builds />
         <DayJob />
+        <Shelf />
         <Credentials />
+        <OffClockIntro />
+        <OffTheClock />
         <Contact resumeUrl={resumeUrl} />
       </main>
+      <Intro />
       <CommandPalette open={palette} setOpen={setPalette} commands={commands} />
     </Layout>
   );

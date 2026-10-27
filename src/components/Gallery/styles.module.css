@@ -1,0 +1,151 @@
+.gallery {
+  position: relative;
+  overflow: hidden;
+  background: var(--ax-night);
+  color: #e6e8f2;
+  padding: clamp(3rem, 7vh, 5rem) 0;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding: 0 var(--ax-gutter);
+  width: max-content;
+  will-change: transform;
+}
+
+.tile {
+  flex: none;
+  height: min(72vh, 640px);
+}
+
+.intro {
+  width: min(32vw, 440px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 2rem;
+}
+
+.introTitle {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 900;
+  font-stretch: 118%;
+  line-height: 0.9;
+  overflow-wrap: normal;
+  hyphens: none;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.introText {
+  margin: 1rem 0 0;
+  color: var(--ax-mist);
+  font-size: 1.1rem;
+}
+
+.photo {
+  margin: 0;
+  width: auto;
+  aspect-ratio: 3 / 4.4;
+  display: flex;
+  flex-direction: column;
+}
+
+.frame {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.frame img {
+  position: absolute;
+  inset: 0 -10%;
+  width: 120%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.photo:hover .frame img {
+  transform: scale(1.04);
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.7rem;
+  font-weight: 650;
+  color: #fff;
+}
+
+.meta {
+  font-weight: 400;
+  color: var(--ax-mist);
+}
+
+.line {
+  width: min(34vw, 460px);
+  display: flex;
+  align-items: center;
+}
+
+.line p {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+  font-weight: 750;
+  font-stretch: 112%;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.slot {
+  aspect-ratio: 3 / 4.4;
+  height: min(60vh, 540px);
+  display: grid;
+  place-items: center;
+  border: 1.5px dashed var(--ax-night-line);
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0 12px, transparent 12px 24px);
+  color: #6f7699;
+  font-size: 0.9rem;
+}
+
+/* Phones and tablets: a native swipeable row instead of the pinned scroll */
+@media (max-width: 996px) {
+  .gallery {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    padding: 0 16px;
+  }
+
+  .tile {
+    height: 62vh;
+    scroll-snap-align: center;
+  }
+
+  .intro,
+  .line {
+    width: 72vw;
+  }
+
+  .slot {
+    height: 52vh;
+  }
+}

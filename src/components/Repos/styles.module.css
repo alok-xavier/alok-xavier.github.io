@@ -1,0 +1,123 @@
+.shelves {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 3rem;
+}
+
+.shelfTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-stretch: 118%;
+}
+
+.shelfIntro {
+  margin: 0.35rem 0 1.25rem;
+  color: var(--ax-slate);
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'owner meta'
+    'name meta'
+    'note note';
+  gap: 0 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid var(--ax-line);
+  background: var(--ax-surface);
+  color: var(--ax-ink);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Spotlight that follows the pointer */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(220px circle at var(--mx, -200px) var(--my, -200px), rgba(245, 181, 68, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.card:hover {
+  color: var(--ax-ink);
+  text-decoration: none;
+  border-color: var(--ax-sodium);
+  box-shadow: 0 18px 34px -22px rgba(22, 27, 51, 0.45);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.owner {
+  grid-area: owner;
+  font-size: 0.85rem;
+  color: var(--ax-slate);
+}
+
+.name {
+  grid-area: name;
+  font-size: 1.1rem;
+  font-weight: 750;
+  font-stretch: 110%;
+  overflow-wrap: anywhere;
+}
+
+.note {
+  grid-area: note;
+  margin-top: 0.4rem;
+  color: var(--ax-slate);
+  font-size: 0.93rem;
+}
+
+.meta {
+  grid-area: meta;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  font-size: 0.82rem;
+  color: var(--ax-slate);
+  white-space: nowrap;
+}
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.langDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.stars {
+  font-weight: 700;
+  color: var(--ax-sodium-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 996px) {
+  .shelves {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
